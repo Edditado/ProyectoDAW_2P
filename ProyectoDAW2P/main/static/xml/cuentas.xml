@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cuentas>
+    <cuenta>
+        <nombres>oferente abc</nombres>
+        <apellidos>oferente xyz</apellidos>
+        <user>oferente</user>
+        <pass>oferente</pass>
+        <carro>true</carro> 
+        <placa>ABC-1234</placa>
+        <telf>0990123456</telf>
+        <mail>oferente@mail.com</mail>
+        <fb>www.facebook.com/oferente</fb>
+        <rutas>
+            <ruta>
+                <idRuta>1</idRuta>
+                <inicio>
+                    <lat>-2.172832</lat>
+                    <long>-79.940428</long>
+                </inicio>
+                <camino>
+                    <pto>
+                        <lat>-2.171050</lat>
+                        <long>-79.942604</long>
+                    </pto>
+                    <pto>
+                        <lat>-2.169994</lat>
+                        <long>-79.941804</long>
+                    </pto>
+                 </camino>
+                <fin>
+                    <lat>-2.169602</lat>
+                    <long>-79.942287</long>
+                </fin>
+            </ruta>
+            <ruta>
+                <idRuta>2</idRuta>
+                <inicio>
+                    <lat>-2.171950</lat>
+                    <long>-79.941169</long>
+                </inicio>
+                <camino>
+                    <pto>
+                        <lat>-2.172106</lat>
+                        <long>-79.941335</long>
+                    </pto>
+                    <pto>
+                        <lat>-2.171050</lat>
+                        <long>-79.942601</long>
+                    </pto>
+                    <pto>
+                        <lat>-2.171216</lat>
+                        <long>-79.942735</long>
+                    </pto>
+                    <pto>
+                        <lat>-2.173028</lat>
+                        <long>-79.940450</long>
+                    </pto>
+                    
+                </camino>
+                <fin>
+                    <lat>-2.175907</lat>
+                    <long>-79.942681</long>
+                </fin>
+            </ruta>
+        </rutas>
+    </cuenta>
+    <cuenta>
+        <nombres>solicitante abc</nombres>
+        <apellidos>solicitante xyz</apellidos>
+        <user>solicitante</user>
+        <pass>solicitante</pass>
+        <carro>false</carro>
+        <placa> </placa>
+        <telf>0990789012</telf>
+        <mail>solicitante@mail.com</mail>
+        <fb>www.facebook.com/solicitante</fb>
+        <rutas></rutas>
+    </cuenta>
+</cuentas>

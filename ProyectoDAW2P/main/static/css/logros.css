@@ -1,0 +1,89 @@
+body {
+}
+.page-logros{
+	float: left;
+	top: 100px;
+}
+#imagen-logros{
+	display: block;
+	position: relative;
+	float: left;
+	margin-top: 100px;
+	margin-left: 300px;
+	top: 70px;
+	margin-bottom: 40px;
+    
+}
+.personasLlevadas{
+	background-image: url('../img/icono-grupo.png');
+	height: 150px;
+	width: 150px;
+	
+	background-repeat: no-repeat;
+	float: right;
+	
+	text-shadow: 1px 1px 3px 534741;
+	
+	padding: 60px;
+	margin-right:40px;
+    margin-top: 10px;
+}
+.huellaEcologica{
+	background-image: url('../img/huellaeco.png');
+	height: 150px;
+	width: 150px;
+	
+	background-repeat: no-repeat;
+	float: right;
+	
+	text-shadow: 1px 1px 3px 534741;
+	
+	padding: 60px;
+	margin-right:40px;
+    
+}
+.consumo{
+	background-image: url('../img/gasol.jpg');
+	height: 100px;
+	width: 100px;
+	background-size:100% 100%;
+	background-repeat: no-repeat;
+	float: right;
+	
+	text-shadow: 1px 1px 3px 534741;
+	
+	padding: 60px;
+	margin-left:10px; 
+    
+}
+
+#div_fig{
+    float: left;
+}
+#div_texto{
+    float: left;
+    
+}
+.texto{
+    float: left;
+    width: 200px;
+}
+
+
+.ptexto{
+   font-family: quango;  
+   color: #0094ff;
+   font-weight: bold;
+   font-size: 18px;
+   
+}
+.cantLogros{
+   font-family: quango;  
+   font-weight: bold;
+   font-size: 40px;
+   padding-left:25px; 
+}
+@font-face{
+	font-family: quango;
+	src: url(../font/quango/Quango.otf); 
+}

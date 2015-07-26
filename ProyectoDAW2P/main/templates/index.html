@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static from staticfiles %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="{% static 'js/index.js' %}"></script>
+    <title>Hacia Allá!</title>
+</head>
+
+<body >
+    <div class="container">
+        <header>
+        <form class="form-inline" id="form" role="form">
+            <nav class="form-group">
+                <label for="userE">Usuario:</label>
+                <input type="text" class="form-control" id="userE" placeholder="Ingresa tu usuario Espol">
+            </nav>
+            <nav class="form-group">
+                <label for="pwE">Contraseña:</label>
+                <input type="password" class="form-control" id="pwE" placeholder="Ingresa tu contraseña">
+            </nav>
+            
+            <a id="goToMenu" href="#"><button id="bIngresar" type="button" class="btn btn-default">Ingresar</button></a>
+        </form>
+       <div id="div_img">     
+              
+        <div class="jumbotron">
+           
+            <h3>
+                Hacia Allá!
+            </h3>
+            <div>
+                <p>Dándonos la mano</p>
+            </div>
+        
+        </div>
+        </div>
+    </header>
+    
+  <section class="row">
+
+        <div class="col-0"></div>
+
+         <div class="col-4">
+            <h1>Hacia Allá</h1>
+                <p>Es una aplicación que te une a la red más grande de amigos al volante.</p>
+        </div>
+        
+        <div class="col-3 right">
+                <div class="aside">
+                    <h2>¿Qué?</h2>
+                        <p>Si!.. Hacía Allá te permite contactar a tus amigos para que te transporten de un lugar a otro. Además si tienes auto puedes ayudar a aquellos que necesiten un aventón</p>
+                    <h2>¿Cómo?</h2>
+                        <p>Tu puedes registrarte y agregar amigos para ser parte de éste nuevo beneficio. Sólo necesitas tu Usuario y Contraseña de Espol</p>
+                 </div>
+        </div>
+
+         <div class="col-3 right">
+             <div class="aside">
+                <h2>No esperes más ¡Regístrate!</h2>
+                
+                <form id="form1">
+                    <div class="form-group" id="user">
+                        <label for="userR">Usuario Espol:</label>
+                        <input type="text" class="form-control" id="userR" required>
+                    </div>
+                    <div class="form-group" id="pw">
+                        <label for="pwR">Contraseña Espol:</label>
+                        <input type="password" class="form-control" id="pwR" required>
+                    </div>
+                    
+                    <button id="bListo" type="button" class="btn btn-default">Listo</button>
+                </form>
+                <form id="form2">
+
+                    <div class="form-group" id="newPassW">
+                        <label for="newPW">Nueva Contraseña (para este sitio)</label>
+                        <input type="password" class="form-control" id="newPW" required>
+                    </div>
+                    <div class="form-group" id="checkPassW">
+                        <label for="checkPW">Confirmar Contraseña</label>
+                        <input type="password" class="form-control" id="checkPW" required>
+                    </div>
+                    
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" id="radio_siAuto">Tengo Auto
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" id="radio_noAuto" checked>No tengo Auto
+                    </label>
+                   
+                    <div class="form-group" id="div_placa">
+                        <label for="placa">Placa</label>
+                        <input type="text" class="form-control" id="placa" placeholder="Ejemplo: ABC-1234">
+                    </div>
+                 
+                    <button id="bRegistrar" type="submit" class="btn btn-default">Registrar</button>
+                </form> 
+             </div>
+                
+        </div>    
+   </section>
+</div>
+<footer class="footer">
+  <p>Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

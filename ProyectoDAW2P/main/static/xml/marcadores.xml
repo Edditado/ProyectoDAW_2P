@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<marcadores>
+    <oferentes>
+       <oferente>
+            <nombre>Cindy Madrid</nombre>
+            <user>cmadrid</user>
+            <ubicacion>
+                <lat>-2.167110</lat>
+                <long>-79.932870</long>
+            </ubicacion>
+            <servicio>gratis</servicio>
+        </oferente>
+
+        <oferente>
+            <nombre>Eddie Hurtado</nombre>
+            <user>ehurtad</user>
+            <ubicacion>
+                <lat>-2.164515</lat>
+                <long>-79.940316</long>
+            </ubicacion>
+            <servicio>pagado</servicio>
+        </oferente>
+
+         <oferente>
+            <nombre>Janna Barreto</nombre>
+            <user>jbarreto</user>
+            <ubicacion>
+                <lat>-2.177595</lat>
+                <long>-79.941624</long>
+            </ubicacion>
+            <servicio>gratis</servicio>
+        </oferente>
+        <!--La distancia hasta pedrito es mayor a 3 km, por tanto este sujeto no se mostrará-->
+        <oferente>
+            <nombre>Pedrito</nombre>
+            <user>pfulanito</user>
+            <ubicacion>
+                <lat>-2.139599</lat>
+                <long>-79.929040</long>
+            </ubicacion>
+            <servicio>pagado</servicio>
+        </oferente>
+    </oferentes>
+
+    <solicitantes>
+         <solicitante>
+            <nombre>Steven</nombre>
+            <user>shurtad</user>
+            <ubicacion>
+                <lat>-2.170953</lat>
+                <long>-79.939055</long>
+            </ubicacion>
+        </solicitante>
+
+        <solicitante>
+            <nombre>Mario</nombre>
+            <user>mbros</user>
+            <ubicacion>
+                <lat>-2.152357</lat>
+                <long>-79.952750</long>
+            </ubicacion>
+        </solicitante>
+
+        <solicitante>
+            <nombre>Ana</nombre>
+            <user>ajalca</user>
+            <ubicacion>
+                <lat>-2.174057</lat>
+                <long>-79.939811</long>
+            </ubicacion>
+        </solicitante>
+
+        <solicitante>
+            <nombre>Joyce</nombre>
+            <user>jsarm</user>
+            <ubicacion>
+                <lat>-2.175097</lat>
+                <long>-79.943813</long>
+            </ubicacion>
+        </solicitante>
+    </solicitantes>
+</marcadores>

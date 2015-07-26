@@ -1,0 +1,162 @@
+
+.modal-header, .modal-content{
+     background-image: url("../img/index.jpg");
+}
+
+.modal-body {
+  text-align: center;
+}
+
+#fotoper {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+}
+
+
+.datos-prin, .info-adic {
+    text-align: left;
+}
+
+
+.datos-prin p, .info-adic p {
+    text-align: center;
+    padding: 3px;
+    font-size: 20px;
+    color: white;
+    
+}
+
+#dp, #da {
+    font-family:Verdana,Helvetica;
+    margin-top: 5px;
+    background-color: deepskyblue;
+    text-align: center;
+    box-shadow: 3px 3px 3px 3px #7b797b;
+}
+
+#nomb, #ap{
+    text-indent: 101px;
+    font-size: 18px;
+    color: #808080;
+    
+}
+
+#lab-nomb, #lab-ap, #lab-usr, #lab-pw, #lab-car, #lab-placa{
+    font-family:Verdana,Helvetica;
+    text-indent: 35px;
+    font-size: 15px;
+    color: black;
+    float: left;
+    font-weight: bold;
+        
+    
+}
+
+
+#nomusuario, #contraseña, #info-carro, #placa {
+    padding-top: 8px;
+}
+
+#dusr{
+    text-indent: 105px;
+    float: left;
+}
+ 
+#dpwd{
+    text-indent: 73px;
+    float: left;
+}
+
+#dPlac{
+    text-indent: 126px;
+    float: left;
+}
+
+#dusr inUsr{
+    text-indent: 105px;
+}
+ 
+#dpwd inPwd{
+    text-indent: 73px;
+}
+
+
+#edusr, #edpwd, #edPlac{
+       
+        padding-left: 8px;
+        width: 32px;
+        height: 23px;
+        cursor: pointer;
+        
+}
+
+ 
+#savenomusuario, #savecontraseña, #savePlaca{
+        margin-left: 6px;
+        font-size:10px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:white;
+        background:#638cb5;
+        border:0px;
+        border-radius: 4px;
+        width:60px;
+        height:19px;
+        display: none;
+  }
+
+ 
+
+
+#chb{
+    text-indent: 100px;
+    float: left;
+    margin-left: 100px;
+    margin-top: 3px;
+}
+ 
+
+#sc, #nc{
+    text-indent: 5px;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+#scp, #ncp{
+    float: left;
+    text-indent: 2px;
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+    
+}
+
+
+
+#celu, #em, #fb{
+    
+    
+    width: 28px;
+    height: 23px;
+    float: left;
+}
+
+#cel, #email, #cuentafb{
+    text-indent: 5px;
+    font-size: 15px;
+    font-family:Verdana,Helvetica;
+    font-weight: bold;
+}
+
+#nombre, #apellido, #nomusuario, #contraseña, #info-carro, #placa{
+    margin-left: 30px;
+    margin-bottom: 12px;
+}
+
+#celular, #correo, #facebook {
+    margin-left: 30px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,110 @@
+body {
+}
+
+
+
+#header{
+    border-radius: 0;
+    margin-bottom: 0;
+}
+#headerTitle{
+    color: gainsboro;
+    font: italic bold 18px Georgia, serif;
+    padding: 3px 20px;
+}
+#ulSesion{
+	margin-right: 0;
+}
+#ulSesion li{
+    float: left;
+    
+}
+#aSesion,#aMessage{
+	color: gainsboro;
+    height: 48px;
+    width: 140px;
+    padding-top: 15px;
+}
+#aMessage{
+    color: #337ab7;
+    width: 100px;
+}
+#aSesion:hover, #aMessage:hover,#aMessage:focus, #aSesion:focus, #aSesion:active, #aMessage:active, .open>#aSesion, .open>#aMessage{
+	color: white;
+    background-color: black;
+}
+.badge{
+    padding: 1px, 8px;
+}
+
+
+#navMenu{
+	background-image: url("../img/index.jpg");
+	padding: 15px 0 0 15px;
+}
+#ulMenu li a img{
+    width: 50px;
+    height: 50px;
+}
+#ulMenu li a h5{
+    color: black;
+}
+#rutas{
+    padding-left: 6px;
+}
+#logros{
+    padding-left: 3px;
+}
+#ulMenu li a{
+    opacity: 0.6;
+    border-radius: 4px 0 0 4px;
+}
+#ulMenu li a:hover{
+    background-color: whitesmoke;
+    opacity: 1;
+}
+#ulMenu li a:focus, #ulMenu li.active>a{
+	background-color: white;
+    opacity: 1;
+}
+
+#sectShow {
+    float: left;
+    padding: 20px 0 0 20px;
+}
+/*Nuevo avance*/
+.dropdown-menu>li>a{
+    padding: 3px 30px;
+}
+#dropdown-nuevoSMS{
+   margin-left: 10px;
+   margin-bottom: 0px;
+}
+#divRutas{
+    position: relative;
+}
+#miCuenta{
+    padding: 3px 53px;
+}
+#salir{
+    padding: 3px 70px;
+}
+.overmap{
+    width:170px; 
+    position: absolute; 
+    top: 100px; 
+    right: 10px; 
+    z-index: 10; 
+    background-color: white;
+    box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);
+    text-align: justify;
+    padding: 10px;
+}
+.overmap h4{
+    text-align: center;
+}
+#bGuardarRuta{
+    color: white;
+    margin-left: 20px;
+    background-color: deepskyblue;
+}
