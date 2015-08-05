@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        {% load static from staticfiles %}
+        <meta charset="utf-8" />
+        <title></title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+        <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>-->
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <script src="{% static 'js/menu.js' %}"></script>
+        <script src="{% static 'js/cuenta.js' %}"></script>
+        <script src="{% static 'js/mapa.js' %}"></script>
+        <script src="{% static 'js/mensajeria.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/menu.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/cuenta.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mensajeria.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/logros.css' %}" />
+    </head>
+
+    <body>
+        <header id="header" class="navbar navbar-inverse">
+            <div class="navbar-header" id="headerTitle">
+                <h4>Hacia All&aacute; !</h4>
+            </div>
+            <ul id="ulSesion" class="nav navbar-right">
+                <li><a id="aMessage" data-toggle="dropdown" href="#"><i class="fa fa-envelope"></i><span id="chatCont" class="badge">1</span> </a>
+                    <ul class="dropdown-menu">
+                        <li id="dropdown-nuevoSMS"><h4>Nuevo</h4></li>                        
+                        <li>
+                            <a id="misMensajes" href="#">
+                                <h5>Eliza, hace&nbsp;<small><i class="fa fa-clock-o"></i> 5 min</small></h5>
+                                <p><small>Solicitante</small></p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a id="aSesion" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> </a>
+                    <ul class="dropdown-menu">
+                        <li><a id="miCuenta" href="#">Mi cuenta</a></li>
+                        <li><a id="salir" href="index.html">Salir</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="modal fade" id="cuenta" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="modal-title"> </div>
+                        </div>
+
+                        <div class="modal-body">
+                            <img src="{% static 'img/profile.jpg' %}" id="fotoper" alt="pfp">
+                            <div class="cont-info">
+                                <div class="datos-prin">
+                                    <p id="dp"> Datos principales </p>
+
+                                    <div id="nombre">
+                                        <div id="lab-nomb">Nombres</div>  <div id="nomb"> </div>
+                                    </div> 
+                                    <div id ="apellido">
+                                        <div id="lab-ap">Apellidos</div>  <div id="ap"> </div>
+                                    </div> 
+                                    <div id="nomusuario">
+                                        <div id="lab-usr">Usuario</div> 
+                                        <div id="dusr"><input type="text" id="inUsr"  disabled></div>
+                                        <img src="{% static 'img/mdf.png' %}" title="Editar" id="edusr" alt="editar">
+                                        <button type="button" id="savenomusuario">Guardar</button>
+                                    </div> 
+                                    <div id="contraseña">
+                                        <div id="lab-pw">Contraseña</div> 
+                                        <div id="dpwd"><input type="password" id="inPwd"  disabled></div>
+                                        <img src="{% static 'img/mdf.png' %}" title="Editar" id="edpwd" alt="editar" >
+                                        <button type="button" id="savecontraseña">Guardar</button>
+                                    </div> 
+                                    <div id="info-carro">
+                                        <div id="lab-car">Tiene carro</div> 
+                                        <div id="chb"> 
+                                            <input type="radio" name="opcar" id="sc"> <p id="scp">SI</p>
+                                            <input type="radio" name="opcar" id="nc"> <p id="ncp">NO</p> 
+                                        </div>
+                                    </div> 
+                                    </br>
+                                    <div id="placa">
+                                        <div id="lab-placa">Placa</div>
+                                        <div id="dPlac"><input type="text" id="placac" disabled></div>
+                                        <img src="{% static 'img/mdf.png' %}" title="Editar" id="edPlac" alt="editar">
+                                        <button type="button" id="savePlaca">Guardar</button>
+                                    </div>
+                                    <br></br>
+                                </div>
+
+                                <div class="info-adic">
+                                    <p id="da"> Informaci&oacute;n adicional </p>
+                                    <div id="celular">
+                                        <img src="{% static 'img/cel.png' %}" title="Celular" id="celu" alt="cl">  <div id="cel"> </div>
+                                    </div> 
+                                    <div id ="correo">
+                                        <img src="{% static 'img/email.png' %}" title="Correo" id="em" alt="ema">  <div id="email"> </div>
+                                    </div> 
+                                    <div id ="facebook">
+                                        <img src="{% static 'img/fb.png' %}" title="Facebook" id="fb" alt="fbc">  <div id="cuentafb"> </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="chat" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="modal-title"> 
+                                <span class="glyphicon glyphicon-comment"></span> Chat
+                            </div>
+                        </div>
+                        <div  class="chat-body clearfix" >
+                           <section id="msmContent" class="panel-body">
+                                <p class="form-control">Hola, ¿coordinamos?</p>
+                           </section>                     
+                        </div>
+                        <div class="input-group">
+                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Escribe tu mensaje aquí..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+                            </span>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </header>
+       
+        <nav id="navMenu">
+            <ul id="ulMenu">
+                
+            </ul>
+        </nav>
+
+        <section id="sectShow" class="tab-content">
+            <div id="divRutas" class="tab-pane fade">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a id="tabR1" data-toggle="tab" href="#rut-1">Ruta 1</a></li>
+                    <li><a id="tabR2" data-toggle="tab" href="#rut-2">Ruta 2</a></li>
+                    <li><a id="tabNR" data-toggle="tab" href="#nRu">Nueva Ruta</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="rut-1" class="tab-pane fade in active">
+                        <div id="ruta1"></div>
+                        <div class="overmap">
+                            <h4>Horario de ruta</h4>
+                            <form id="form1">
+                                <div class="form-group" >
+                                    <label>Fecha:</label>
+                                    <input type="date" class="form-control" value="2015-07-15" readonly="redonly">
+                                </div>
+                                <div class="form-group" id="pw">
+                                    <label  >Hora:</label>
+                                    <input type="time" class="form-control" value="12:30" readonly="redonly">
+                                </div>
+                    
+                            </form>
+                        </div> 
+                    </div>
+                    <div id="rut-2" class="tab-pane fade">
+                        <div id="ruta2"></div>
+                        <div class="overmap">
+                            <h4>Horario de ruta</h4>
+                            <form id="form1">
+                                <div class="form-group" >
+                                    <label>Fecha:</label>
+                                    <input type="date" class="form-control" value="2015-07-16" readonly="redonly">
+                                </div>
+                                <div class="form-group" id="pw">
+                                    <label  >Hora:</label>
+                                    <input type="time" class="form-control" value="09:30" readonly="redonly">
+                                </div>
+                    
+                            </form>
+                        </div> 
+                    </div>
+                    <div id="nRu"class="tab-pane fade">
+                        <div id="nRuta"></div>
+                        <div class="overmap">
+                            <h4>Horario de ruta</h4>
+                            <form id="form1">
+                                <div class="form-group" >
+                                    <label for="fRuta">Fecha:</label>
+                                    <input id="fechaRuta" type="date" class="form-control" id="fRuta" required>
+                                </div>
+                                <div class="form-group" id="pw">
+                                    <label for="hRuta" >Hora:</label>
+                                    <input id="horaRuta"type="time" class="form-control" id="hRuta" required>
+                                </div>
+                    
+                                <button id="bGuardarRuta" type="button" class="btn btn-default">Guardar Ruta</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="divSolic" class="tab-pane fade">
+            </div>
+            <div id="divLogros" class="tab-pane fade">
+                
+			        <div id="imagen-logros" >
+                        <div id="div_fig">
+					        <div class="consumo"></div>
+					        <div class="huellaEcologica"></div>
+					        <div class="personasLlevadas"></div>
+					    </div>
+                        <div style="clear: both;"></div>
+                        <div id="div_texto" >
+					        <div class="texto"><label class="cantLogros" >34</label></br><p class="ptexto">Personas Llevadas</p></div>
+					        <div class="texto"><label class="cantLogros">54%</label></br><p class="ptexto">Huella ecológica</p></div>
+					        <div class="texto"><label class="cantLogros">16</label></br><p  class="ptexto">Galones Ahorrados</p></div>
+				        </div>
+                    </div>
+			
+		        
+            </div>
+        </section>
+    </body>
+</html>

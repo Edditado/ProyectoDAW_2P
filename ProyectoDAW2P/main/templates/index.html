@@ -15,7 +15,7 @@
 <body >
     <div class="container">
         <header>
-        <form class="form-inline" id="form" role="form">
+        <form class="form-inline" id="form" role="form" method="POST" action=""> {% csrf_token %}
             <nav class="form-group">
                 <label for="userE">Usuario:</label>
                 <input type="text" class="form-control" id="userE" placeholder="Ingresa tu usuario Espol">
@@ -24,8 +24,8 @@
                 <label for="pwE">Contraseña:</label>
                 <input type="password" class="form-control" id="pwE" placeholder="Ingresa tu contraseña">
             </nav>
-            
-            <a id="goToMenu" href="#"><button id="bIngresar" type="button" class="btn btn-default">Ingresar</button></a>
+            <input type="submit" value="Ingresar" class="btn btn-default">
+            <!--<a id="goToMenu" href="#"><button id="bIngresar" type="button" class="btn btn-default">Ingresar</button></a>-->
         </form>
        <div id="div_img">     
               
