@@ -8,26 +8,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <script src="{% static 'js/index.js' %}"></script>
+    <!--<script src="{% static 'js/index.js' %}"></script>-->
     <title>Hacia Allá!</title>
 </head>
 
 <body >
     <div class="container">
         <header>
-        <form class="form-inline" id="form" role="form" method="POST" action=""> {% csrf_token %}
+        <form action="sistema/" method="POST" class="form-inline" id="form" role="form">{% csrf_token %}
             <nav class="form-group">
                 <label for="userE">Usuario:</label>
-                <input type="text" class="form-control" id="userE" placeholder="Ingresa tu usuario Espol">
+                <input type="text" class="form-control" name="username" id="userE" placeholder="Ingresa tu usuario Espol" required>
             </nav>
             <nav class="form-group">
                 <label for="pwE">Contraseña:</label>
-                <input type="password" class="form-control" id="pwE" placeholder="Ingresa tu contraseña">
+                <input type="password" class="form-control" name="password" id="pwE" placeholder="Ingresa tu contraseña" required>
             </nav>
-            <input type="submit" value="Ingresar" class="btn btn-default">
-            <!--<a id="goToMenu" href="#"><button id="bIngresar" type="button" class="btn btn-default">Ingresar</button></a>-->
+            
+           <button id="bIngresar" type="submit" class="btn btn-default">Ingresar</button>
         </form>
-       <div id="div_img">     
+        <div id="div_img">     
               
         <div class="jumbotron">
            
@@ -40,7 +40,7 @@
         
         </div>
         </div>
-    </header>
+        </header>
     
   <section class="row">
 

@@ -54,6 +54,8 @@ class AuthUser(models.Model):
     is_staff = models.BooleanField()
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
+    tipo = models.TextField(blank=True)
+    telf = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -83,7 +85,7 @@ class AuthUserUserPermissions(models.Model):
 class Carro(models.Model):
     id_carro = models.IntegerField(primary_key=True)
     placa = models.TextField(blank=True)
-    fkc_user = models.ForeignKey('Usuario', db_column='fkc_user', blank=True, null=True)
+    fkc_user = models.ForeignKey(AuthUser, db_column='fkc_user', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -94,7 +96,7 @@ class Cuenta(models.Model):
     id_cuenta = models.IntegerField(primary_key=True)
     cuenta = models.TextField(blank=True)
     tipo = models.TextField(blank=True)
-    fk_cta_user = models.ForeignKey('Usuario', db_column='fk_cta_user', blank=True, null=True)
+    fk_cta_user = models.ForeignKey(AuthUser, db_column='fk_cta_user', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -160,7 +162,7 @@ class Mensaje(models.Model):
 
 class Peticion(models.Model):
     id_peticion = models.IntegerField(primary_key=True)
-    fk_oferente = models.ForeignKey('Usuario', db_column='fk_oferente', blank=True, null=True)
+    fk_oferente = models.ForeignKey(AuthUser, db_column='fk_oferente', blank=True, null=True)
     fecha = models.DateField(blank=True, null=True)
     hora = models.TimeField(blank=True, null=True)
     fk_solicitante = models.IntegerField(blank=True, null=True)
@@ -177,21 +179,8 @@ class Ruta(models.Model):
     camino = models.TextField(blank=True)  # This field type is a guess.
     fecha = models.DateField(blank=True, null=True)
     hora = models.TimeField(blank=True, null=True)
-    fk_user = models.IntegerField(blank=True, null=True)
+    fk_user = models.ForeignKey('Ruta', db_column='fk_user', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'ruta'
-
-
-class Usuario(models.Model):
-    id_user = models.IntegerField(primary_key=True)
-    nombre = models.TextField(blank=True)
-    apellido = models.TextField(blank=True)
-    telf = models.IntegerField(blank=True, null=True)
-    tipo = models.TextField(blank=True)
-    user = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'usuario'

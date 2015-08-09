@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-     url(r'^$', views.IndexView.as_view()),
-    url(r'^menu/$', views.MenuView.as_view()),
+    url(r'^$', views.indexView),
+    url(r'^sistema/$', views.ingresar),
+    url(r'^salir/$', views.salir)
+    
 )

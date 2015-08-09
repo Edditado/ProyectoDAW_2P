@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="es">
+<html lang="en">
     <head>
         {% load static from staticfiles %}
         <meta charset="utf-8" />
@@ -15,11 +15,11 @@
         <script src="{% static 'js/menu.js' %}"></script>
         <script src="{% static 'js/cuenta.js' %}"></script>
         <script src="{% static 'js/mapa.js' %}"></script>
-        <script src="{% static 'js/mensajeria.js' %}"></script>
+        <script src="{% static 'js/mensajeria.js'%}"></script>
         <link rel="stylesheet" href="{% static 'css/menu.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/cuenta.css' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/mensajeria.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/logros.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/logros.css'%}" />
     </head>
 
     <body>
@@ -27,6 +27,8 @@
             <div class="navbar-header" id="headerTitle">
                 <h4>Hacia All&aacute; !</h4>
             </div>
+
+        {%if usuario %} <!--Cuando se lanza menu.html se cargar el usuario desde tabla AuthUser para    mostra lo siguiente-->
             <ul id="ulSesion" class="nav navbar-right">
                 <li><a id="aMessage" data-toggle="dropdown" href="#"><i class="fa fa-envelope"></i><span id="chatCont" class="badge">1</span> </a>
                     <ul class="dropdown-menu">
@@ -39,10 +41,10 @@
                         </li>
                     </ul>
                 </li>
-                <li><a id="aSesion" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> </a>
+                <li><a id="aSesion" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> {{usuario.first_name}} {{usuario.last_name}}</a>
                     <ul class="dropdown-menu">
                         <li><a id="miCuenta" href="#">Mi cuenta</a></li>
-                        <li><a id="salir" href="index.html">Salir</a></li>
+                        <li><a id="salir" href="/salir">Salir</a></li>
                     </ul>
                 </li>
             </ul>
@@ -76,7 +78,7 @@
                                     <div id="contraseña">
                                         <div id="lab-pw">Contraseña</div> 
                                         <div id="dpwd"><input type="password" id="inPwd"  disabled></div>
-                                        <img src="{% static 'img/mdf.png' %}" title="Editar" id="edpwd" alt="editar" >
+                                        <img src="{% static 'img/mdf.png'%}" title="Editar" id="edpwd" alt="editar" >
                                         <button type="button" id="savecontraseña">Guardar</button>
                                     </div> 
                                     <div id="info-carro">
@@ -130,104 +132,128 @@
                         <div class="input-group">
                             <input id="btn-input" type="text" class="form-control input-sm" placeholder="Escribe tu mensaje aquí..." />
                             <span class="input-group-btn">
-                                <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+                                <button class="btn btn-primary btn-sm" id="btn-chat">Enviar</button>
                             </span>
                         </div>                        
                     </div>
                 </div>
             </div>
+
+            
+
         </header>
        
-        <nav id="navMenu">
-            <ul id="ulMenu">
-                
-            </ul>
-        </nav>
+            {%if usuario.tipo == "oferente" %}
 
-        <section id="sectShow" class="tab-content">
-            <div id="divRutas" class="tab-pane fade">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a id="tabR1" data-toggle="tab" href="#rut-1">Ruta 1</a></li>
-                    <li><a id="tabR2" data-toggle="tab" href="#rut-2">Ruta 2</a></li>
-                    <li><a id="tabNR" data-toggle="tab" href="#nRu">Nueva Ruta</a></li>
-                </ul>
+                <nav id="navMenu">
+                    <ul id="ulMenu">
+                        <li class="active">
+                            <a href="#divRutas" data-toggle="pill" alt="HTML5 icon"><img src="{% static 'img/car_icon.png' %}"><h5 id="rutas">Rutas</h5></a>
+                        </li>
+                        <li>
+                            <a href="#divSolic" data-toggle="pill" alt="HTML5 icon"><img src="{% static 'img/location.png' %}"><h5 id="solicitar">Solicitar</h5></a>
+                        </li>
+                        <li>
+                            <a href="#divLogros" data-toggle="pill" alt="HTML5 icon"><img src="{% static 'img/medal.png' %}"><h5 id="logros">Logros</h5></a>
+                        </li>
+                    </ul>
 
-                <div class="tab-content">
-                    <div id="rut-1" class="tab-pane fade in active">
-                        <div id="ruta1"></div>
-                        <div class="overmap">
-                            <h4>Horario de ruta</h4>
-                            <form id="form1">
-                                <div class="form-group" >
-                                    <label>Fecha:</label>
-                                    <input type="date" class="form-control" value="2015-07-15" readonly="redonly">
-                                </div>
-                                <div class="form-group" id="pw">
-                                    <label  >Hora:</label>
-                                    <input type="time" class="form-control" value="12:30" readonly="redonly">
-                                </div>
+                </nav>
+                <section id="sectShow" class="tab-content">
+                   <!--Division de Rutas-->
+                   <div id="divRutas" class="tab-pane fade in active">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a id="tabR1" data-toggle="tab" href="#rut-1">Ruta 1</a></li>
+                            <li><a id="tabR2" data-toggle="tab" href="#rut-2">Ruta 2</a></li>
+                            <li><a id="tabNR" data-toggle="tab" href="#nRu">Nueva Ruta</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="rut-1" class="tab-pane fade in active">
+                                <div id="ruta1"></div>
+                                <div class="overmap">
+                                    <h4>Horario de ruta</h4>
+                                    <form id="form1">
+                                        <div class="form-group" >
+                                            <label>Fecha:</label>
+                                            <input type="date" class="form-control" value="2015-07-15" readonly="redonly">
+                                        </div>
+                                        <div class="form-group" id="pw">
+                                            <label  >Hora:</label>
+                                            <input type="time" class="form-control" value="12:30" readonly="redonly">
+                                        </div>
                     
-                            </form>
-                        </div> 
-                    </div>
-                    <div id="rut-2" class="tab-pane fade">
-                        <div id="ruta2"></div>
-                        <div class="overmap">
-                            <h4>Horario de ruta</h4>
-                            <form id="form1">
-                                <div class="form-group" >
-                                    <label>Fecha:</label>
-                                    <input type="date" class="form-control" value="2015-07-16" readonly="redonly">
-                                </div>
-                                <div class="form-group" id="pw">
-                                    <label  >Hora:</label>
-                                    <input type="time" class="form-control" value="09:30" readonly="redonly">
-                                </div>
+                                    </form>
+                                </div> 
+                            </div>
+                            <div id="rut-2" class="tab-pane fade">
+                                <div id="ruta2"></div>
+                                <div class="overmap">
+                                    <h4>Horario de ruta</h4>
+                                    <form id="form1">
+                                        <div class="form-group" >
+                                            <label>Fecha:</label>
+                                            <input type="date" class="form-control" value="2015-07-16" readonly="redonly">
+                                        </div>
+                                        <div class="form-group" id="pw">
+                                            <label  >Hora:</label>
+                                            <input type="time" class="form-control" value="09:30" readonly="redonly">
+                                        </div>
                     
-                            </form>
-                        </div> 
-                    </div>
-                    <div id="nRu"class="tab-pane fade">
-                        <div id="nRuta"></div>
-                        <div class="overmap">
-                            <h4>Horario de ruta</h4>
-                            <form id="form1">
-                                <div class="form-group" >
-                                    <label for="fRuta">Fecha:</label>
-                                    <input id="fechaRuta" type="date" class="form-control" id="fRuta" required>
-                                </div>
-                                <div class="form-group" id="pw">
-                                    <label for="hRuta" >Hora:</label>
-                                    <input id="horaRuta"type="time" class="form-control" id="hRuta" required>
-                                </div>
+                                    </form>
+                                </div> 
+                            </div>
+                            <div id="nRu"class="tab-pane fade">
+                                <div id="nRuta"></div>
+                                <div class="overmap">
+                                    <h4>Horario de ruta</h4>
+                                    <form id="form1">
+                                        <div class="form-group" >
+                                            <label for="fRuta">Fecha:</label>
+                                            <input id="fechaRuta" type="date" class="form-control" id="fRuta" required>
+                                        </div>
+                                        <div class="form-group" id="pw">
+                                            <label for="hRuta" >Hora:</label>
+                                            <input id="horaRuta"type="time" class="form-control" id="hRuta" required>
+                                        </div>
                     
-                                <button id="bGuardarRuta" type="button" class="btn btn-default">Guardar Ruta</button>
-                            </form>
+                                        <button id="bGuardarRuta" type="button" class="btn btn-default">Guardar Ruta</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
                 
-            </div>
-            <div id="divSolic" class="tab-pane fade">
-            </div>
-            <div id="divLogros" class="tab-pane fade">
-                
-			        <div id="imagen-logros" >
-                        <div id="div_fig">
-					        <div class="consumo"></div>
-					        <div class="huellaEcologica"></div>
-					        <div class="personasLlevadas"></div>
-					    </div>
-                        <div style="clear: both;"></div>
-                        <div id="div_texto" >
-					        <div class="texto"><label class="cantLogros" >34</label></br><p class="ptexto">Personas Llevadas</p></div>
-					        <div class="texto"><label class="cantLogros">54%</label></br><p class="ptexto">Huella ecológica</p></div>
-					        <div class="texto"><label class="cantLogros">16</label></br><p  class="ptexto">Galones Ahorrados</p></div>
-				        </div>
                     </div>
-			
-		        
-            </div>
-        </section>
+                    <!--Division de Solicitudes-->
+                    <div id="divSolic" class="tab-pane fade">
+                    </div>
+                    <!--Division de Logros-->
+                    <div id="divLogros" class="tab-pane fade">
+                        <div id="imagen-logros" >
+                            <div id="div_fig">
+                                <div class="consumo"></div>
+                                <div class="huellaEcologica"></div>
+                                <div class="personasLlevadas"></div>
+                            </div>
+                            <div style="clear: both;"></div>
+                            <div id="div_texto" >
+                                <div class="texto"><label class="cantLogros" >34</label></br><p class="ptexto">Personas Llevadas</p></div>
+                                <div class="texto"><label class="cantLogros">54%</label></br><p class="ptexto">Huella ecológica</p></div>
+                                <div class="texto"><label class="cantLogros">16</label></br><p  class="ptexto">Galones Ahorrados</p></div>
+                            </div>
+                        </div>
+                   
+                    </div>
+                </section>
+
+            {%endif%}    
+
+        {%endif%}
+        
+        <div id="contenido">
+    
+            {% block content %}{% endblock %}
+
+        </div>
     </body>
 </html>
