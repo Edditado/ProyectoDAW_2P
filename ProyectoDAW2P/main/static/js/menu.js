@@ -1,12 +1,13 @@
-function inicializar(){
+
+/*function inicializar(){
     var usrStorage = sessionStorage.getItem('tc');
-   
+  
     obtenerUserData(usrStorage);
 }
 
 function obtenerUserData(usrStorage){
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET","xml/cuentas.xml", false);
+    xmlhttp.open("GET","../static/xml/cuentas.xml", false);
     xmlhttp.send();
     var xmlDoc = xmlhttp.responseXML;
     var xmlUsrs = xmlDoc.getElementsByTagName("user");
@@ -36,10 +37,11 @@ function obtenerUserData(usrStorage){
     }
 
     crearMenu(tieneCarro);
-}
+}*/
 
-function crearMenu(tieneCarro){
-    var rutas, solicitar, logros;
+function inicializar(){
+     
+    /*var rutas, solicitar, logros;
 
     if(tieneCarro == "true"){
         divRutas.setAttribute("class", "tab-pane fade in active");
@@ -50,7 +52,7 @@ function crearMenu(tieneCarro){
         a.setAttribute("href", "#divRutas");
         a.setAttribute("data-toggle", "pill");
         var img = document.createElement("img");
-        img.setAttribute("src", "img/car_icon.png");
+        img.setAttribute("src", "static/img/car_icon.png");
         img.setAttribute("alt", "HTML5 Icon");
         a.appendChild(img);
         var p = document.createElement("h5");
@@ -66,7 +68,7 @@ function crearMenu(tieneCarro){
         a.setAttribute("href", "#divSolic");
         a.setAttribute("data-toggle", "pill");
         var img = document.createElement("img");
-        img.setAttribute("src", "img/location.png");
+        img.setAttribute("src", "static/img/location.png");
         img.setAttribute("alt", "HTML5 Icon");
         a.appendChild(img);
         var p = document.createElement("h5");
@@ -82,7 +84,7 @@ function crearMenu(tieneCarro){
         a.setAttribute("href", "#divLogros");
         a.setAttribute("data-toggle", "pill");
         var img = document.createElement("img");
-        img.setAttribute("src", "img/medal.png");
+        img.setAttribute("src", "static/img/medal.png");
         img.setAttribute("alt", "HTML5 Icon");
         a.appendChild(img);
         var p = document.createElement("h5");
@@ -102,7 +104,7 @@ function crearMenu(tieneCarro){
         a.setAttribute("href", "#divSolic");
         a.setAttribute("data-toggle", "pill"); 
         var img = document.createElement("img"); 
-        img.setAttribute("src", "img/location.png");
+        img.setAttribute("src", "static/img/location.png");
         img.setAttribute("alt", "HTML5 Icon");
         a.appendChild(img);
         var p = document.createElement("h5");
@@ -112,7 +114,7 @@ function crearMenu(tieneCarro){
         a.appendChild(p);
         solicitar.appendChild(a);
         ulMenu.appendChild(solicitar);
-    }
+    }*/
 
     if (window.innerWidth <= window.innerHeight) {
         ulMenu.setAttribute("class", "nav nav-pills");

@@ -14,12 +14,18 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <script src="{% static 'js/menu.js' %}"></script>
         <script src="{% static 'js/cuenta.js' %}"></script>
-        <script src="{% static 'js/mapa.js' %}"></script>
+        <script src="{% static 'js/map.js' %}"></script>
         <script src="{% static 'js/mensajeria.js'%}"></script>
         <link rel="stylesheet" href="{% static 'css/menu.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/cuenta.css' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/mensajeria.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/logros.css'%}" />
+        <script type="text/javascript">
+            function agregar(us){
+                alert("*");
+
+            }
+        </script>
     </head>
 
     <body>
@@ -144,6 +150,10 @@
         </header>
        
             {%if usuario.tipo == "oferente" %}
+                <!--<script type="text/javascript">
+                    var a = "{{usuario.tipo}}"
+                    alert(a); 
+                </script>-->
 
                 <nav id="navMenu">
                     <ul id="ulMenu">
@@ -180,7 +190,7 @@
                                         </div>
                                         <div class="form-group" id="pw">
                                             <label  >Hora:</label>
-                                            <input type="time" class="form-control" value="12:30" readonly="redonly">
+                                            <input type="time"  class="form-control" value="12:30" readonly="redonly">
                                         </div>
                     
                                     </form>

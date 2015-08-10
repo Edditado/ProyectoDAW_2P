@@ -2,10 +2,12 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 #from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from main.models import * 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+#import json
+#from django.core import serializers
 # Create your views here.
 def indexView(request):
 	if request.user.is_authenticated():
@@ -30,12 +32,21 @@ def ingresar(request):
 			if(user):
 				login(request, user)
 				usuario= AuthUser.objects.get(id=request.user.id)
+				
+				
 				return render_to_response('menu.html', {'usuario':usuario},context_instance=RequestContext(request))
 			else:	
 				return render_to_response('usuario_incorrecto.html', context_instance=RequestContext(request))
 	except:
 		print "error" # aqui se debe mostrar un archivo llamado error.html para mostrar errores en el servidor
 		#return render_to_response('error.html', context_instance=RequestContext(request))
+
+'''def prueba(request):
+	if request.user.is_authenticated:
+		usu=AuthUser.objects.get(id=request.user.id)
+		data = serializers.serialize('json', usu)
+		print"123"
+		return HttpResponse(data, content_type ='application/json')'''
 
 def salir(request):
 	logout(request)
