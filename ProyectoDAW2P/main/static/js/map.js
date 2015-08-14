@@ -62,7 +62,7 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
         		
                 if (start == null) {
                     start = new google.maps.LatLng(event.latLng.lat(),event.latLng.lng());
-                    
+                    //alert(typeof(start.lat()));
                     return;
                 }
 
@@ -75,7 +75,7 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
                         stopover: false
                     });
                     end = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-                  
+                                      
                 }
                 
                 var request = {
@@ -130,4 +130,75 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
      	map.setCenter(myCenter);
     });
 }	    
+
+function guardarRuta(){
+
+     if (($(fechaRuta).val() == "" || $(horaRuta).val() == "") && end == null) {
+            alert("Primero marque su ruta");
+
+     }
+     else if ($(fechaRuta).val() != "" && $(horaRuta).val() != "" && end == null) {
+            alert("Primero marque su ruta");
+     }
+     else if (($(fechaRuta).val() == "" || $(horaRuta).val() == "") && end != null) {
+            alert("Debe ingresar la fecha y hora de su ruta");
+     }
+     else {
+
+            fecha= $("#fechaRuta").val();    
+            hora= $("#horaRuta").val();
+
+            
+            var xmlhttp; 
+
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            xmlhttp.onreadystatechange=function(){
+
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    xml = xmlhttp.responseXML;
+                    if (xml){
+                            resultado = xml.getElementsByTagName("respuesta")[0].firstChild.nodeValue;
+                            if (resultado != "Ok")
+                                alert('Error al enviar resultados.');
+                            else{
+                                alert("Se ha guardado su ruta exitosamente..");
+                                //window.location = "/sistema/reservaciones/activas/";
+                            }
+                    }
+                }
+            }
+
+            xmlhttp.open("POST","guardar/",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8");
+
+
+
+            string = "lat_i=" + start.lat() + "&lng_i=" + start.lng() + "&lat_f=" + end.lat() + "&lng_f=" + end.lng() + "&fecha=" + fecha + "&hora=" + hora;
+
+            string = encodeURI(string);
+
+            //string = encodeURIComponent(string);
+
+            xmlhttp.send(string);
+           
+           /* alert("Se ha guardado su ruta exitosamente..");
+            $(fechaRuta).val(""); $(horaRuta).val("")
+            directionsDisplay.set('directions', null);
+            waypts = [];
+            start = null;
+            end = null;*/
+     }
+
+     
+  
+}   
 window.addEventListener('load', MAP_initialize);    

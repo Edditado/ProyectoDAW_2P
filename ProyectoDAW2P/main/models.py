@@ -83,7 +83,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Carro(models.Model):
-    id_carro = models.IntegerField(primary_key=True)
+    id_carro = models.AutoField(primary_key=True)
     placa = models.TextField(blank=True)
     fkc_user = models.ForeignKey(AuthUser, db_column='fkc_user', blank=True, null=True)
 
@@ -93,7 +93,7 @@ class Carro(models.Model):
 
 
 class Cuenta(models.Model):
-    id_cuenta = models.IntegerField(primary_key=True)
+    id_cuenta = models.AutoField(primary_key=True)
     cuenta = models.TextField(blank=True)
     tipo = models.TextField(blank=True)
     fk_cta_user = models.ForeignKey(AuthUser, db_column='fk_cta_user', blank=True, null=True)
@@ -151,7 +151,7 @@ class DjangoSession(models.Model):
 
 
 class Mensaje(models.Model):
-    id_sms = models.IntegerField(primary_key=True)
+    id_sms = models.AutoField(primary_key=True)
     contenido = models.TextField(blank=True)
     fk_peticion = models.ForeignKey('Peticion', db_column='fk_peticion', blank=True, null=True)
 
@@ -161,7 +161,7 @@ class Mensaje(models.Model):
 
 
 class Peticion(models.Model):
-    id_peticion = models.IntegerField(primary_key=True)
+    id_peticion = models.AutoField(primary_key=True)
     fk_oferente = models.ForeignKey(AuthUser, db_column='fk_oferente', blank=True, null=True)
     fecha = models.DateField(blank=True, null=True)
     hora = models.TimeField(blank=True, null=True)
@@ -173,13 +173,14 @@ class Peticion(models.Model):
 
 
 class Ruta(models.Model):
-    id_ruta = models.IntegerField(primary_key=True)
-    origen = models.TextField(blank=True)  # This field type is a guess.
-    fin = models.TextField(blank=True)  # This field type is a guess.
-    camino = models.TextField(blank=True)  # This field type is a guess.
-    fecha = models.DateField(blank=True, null=True)
-    hora = models.TimeField(blank=True, null=True)
-    fk_user = models.ForeignKey('Ruta', db_column='fk_user', blank=True, null=True)
+    id_ruta = models.AutoField(primary_key=True)
+    fk_user = models.ForeignKey(AuthUser, db_column='fk_user', blank=True, null=True)
+    lat_i = models.FloatField(blank=True, null=True)
+    lng_i = models.FloatField(blank=True, null=True)
+    lat_f = models.FloatField(blank=True, null=True)
+    lng_f = models.FloatField(blank=True, null=True)
+    fecha = models.TextField(blank=True)
+    hora = models.TextField(blank=True)
 
     class Meta:
         managed = False

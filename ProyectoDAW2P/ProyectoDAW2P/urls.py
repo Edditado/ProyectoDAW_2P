@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.indexView),
     url(r'^sistema/$', views.ingresar),
+    url(r'^sistema/guardar/$', views.guardarRuta),
     url(r'^salir/$', views.salir)
     
 )

@@ -186,11 +186,11 @@
                                     <form id="form1">
                                         <div class="form-group" >
                                             <label>Fecha:</label>
-                                            <input type="date" class="form-control" value="2015-07-15" readonly="redonly">
+                                            <input id="fechaR" type="date" class="form-control" value="2015-07-15" readonly="redonly">
                                         </div>
                                         <div class="form-group" id="pw">
                                             <label  >Hora:</label>
-                                            <input type="time"  class="form-control" value="12:30" readonly="redonly">
+                                            <input id="horaR" type="time"  class="form-control" value="12:30" readonly="redonly">
                                         </div>
                     
                                     </form>
@@ -217,17 +217,17 @@
                                 <div id="nRuta"></div>
                                 <div class="overmap">
                                     <h4>Horario de ruta</h4>
-                                    <form id="form1">
+                                    <form id="form1" >
                                         <div class="form-group" >
                                             <label for="fRuta">Fecha:</label>
-                                            <input id="fechaRuta" type="date" class="form-control" id="fRuta" required>
+                                            <input name="fechaRuta" id="fechaRuta" type="date" class="form-control" required>
                                         </div>
                                         <div class="form-group" id="pw">
                                             <label for="hRuta" >Hora:</label>
-                                            <input id="horaRuta"type="time" class="form-control" id="hRuta" required>
+                                            <input name="horaRuta" id="horaRuta" type="time" class="form-control" required>
                                         </div>
                     
-                                        <button id="bGuardarRuta" type="button" class="btn btn-default">Guardar Ruta</button>
+                                        <button id="bGuardarRuta" onclick="javascript:guardarRuta();" type="button" class="btn btn-default">Guardar Ruta</button>
                                     </form>
                                 </div>
                             </div>
