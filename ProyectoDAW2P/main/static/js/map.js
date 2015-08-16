@@ -75,9 +75,10 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
                         stopover: false
                     });
                     end = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-                                      
+
                 }
                 
+
                 var request = {
                     origin: start,
                     destination: end,
@@ -148,7 +149,17 @@ function guardarRuta(){
             fecha= $("#fechaRuta").val();    
             hora= $("#horaRuta").val();
 
-            
+                          
+            var way = "";
+            for(var i = 0; i < waypts.length; i++){
+                coord_lat =waypts[i].location.lat();
+                coord_lng =waypts[i].location.lng();
+                coord = coord_lat + "," + coord_lng;
+                
+                way = way + coord + "|";        
+            }    
+            way=way.substring(0, way.length-1);
+            alert(way.length)
             var xmlhttp; 
 
             if (window.XMLHttpRequest)
@@ -181,9 +192,9 @@ function guardarRuta(){
             xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8");
 
 
-
-            string = "lat_i=" + start.lat() + "&lng_i=" + start.lng() + "&lat_f=" + end.lat() + "&lng_f=" + end.lng() + "&fecha=" + fecha + "&hora=" + hora;
-
+            
+            string = "lat_i=" + start.lat() + "&lng_i=" + start.lng() + "&lat_f=" + end.lat() + "&lng_f=" + end.lng()  + "&fecha=" + fecha + "&hora=" + hora + "&way=" + way;
+           
             string = encodeURI(string);
 
             //string = encodeURIComponent(string);

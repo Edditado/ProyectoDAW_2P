@@ -171,17 +171,26 @@ class Peticion(models.Model):
         managed = False
         db_table = 'peticion'
 
+class Puntos(models.Model):
+    id_pto = models.AutoField(primary_key=True)
+    pto_lat = models.FloatField(blank=True, null=True)
+    pto_lng = models.FloatField(blank=True, null=True)
+    tipo = models.TextField(blank=True)
+    fk_ruta = models.ForeignKey('Ruta', db_column='fk_ruta', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'puntos'
+
 
 class Ruta(models.Model):
     id_ruta = models.AutoField(primary_key=True)
     fk_user = models.ForeignKey(AuthUser, db_column='fk_user', blank=True, null=True)
-    lat_i = models.FloatField(blank=True, null=True)
-    lng_i = models.FloatField(blank=True, null=True)
-    lat_f = models.FloatField(blank=True, null=True)
-    lng_f = models.FloatField(blank=True, null=True)
     fecha = models.TextField(blank=True)
     hora = models.TextField(blank=True)
 
     class Meta:
         managed = False
         db_table = 'ruta'
+
+

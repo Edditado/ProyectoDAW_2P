@@ -49,22 +49,42 @@ def guardarRuta(request):
 	if request.user.is_authenticated():
 
 			lat_i= float(request.POST['lat_i'])
-			print type(lat_i)
+			#print type(lat_i)
 			lng_i= float(request.POST['lng_i'])
-			print type (lng_i)
+			
 			lat_f= float(request.POST['lat_f'])
-			print type (lat_f)
+			
 			lng_f= float(request.POST['lng_f'])
-			print type (lng_f)
-			#print end
-			fec= str(request.POST['fecha'])
-			print type (fec)			
-			hor= str(request.POST['hora'])
-			print type (hor)
-			user= AuthUser.objects.get(id=2)
-			print type (user)
-			r = Ruta.objects.create(fk_user=user, lat_i=lat_i, lng_i=lng_i, lat_f=lat_f, lng_f=lng_f, fecha=fec, hora=hor)
-			print r
+			
+			way = str(request.POST['way'])
+			print way
+			fec = str(request.POST['fecha'])
+						
+			hor = str(request.POST['hora'])
+			
+			user= AuthUser.objects.get(id=request.user.id)
+			
+			ruta = Ruta.objects.create(fk_user=user, fecha=fec, hora=hor)
+
+			ruta = Ruta.objects.get(id_ruta=ruta.id_ruta)
+			
+			Puntos.objects.create(pto_lat=lat_i,pto_lng=lng_i,tipo="inicio",fk_ruta=ruta)
+			Puntos.objects.create(pto_lat=lat_f,pto_lng=lng_f,tipo="fin",fk_ruta=ruta)
+			
+			print len(way)
+			
+			if(len(way)!=0):
+				coords_list = way.split('|')
+				print coords_list
+				for coords in coords_list:
+					coord = coords.split(',')
+					lat=coord[0]
+					lng=coord[1]
+					lat=float(lat)
+					lng=float(lng)
+					Puntos.objects.create(pto_lat=lat,pto_lng=lng,tipo="camino",fk_ruta=ruta)
+				
+
 			xml = "<respuesta>Ok</respuesta>"
 
 			return HttpResponse(xml, content_type = 'application/xml')
