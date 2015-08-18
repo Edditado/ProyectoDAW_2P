@@ -1,11 +1,40 @@
 
+
+function inicializar(){
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var myArr = JSON.parse(xmlhttp.responseText);   
+        myFunction(myArr);
+     }
+    }
+    xmlhttp.open("GET", "datos/", true);
+    xmlhttp.send();
+
+    function myFunction(arr) {
+        var campos= arr[0].fields;
+        tipo_user=campos.tipo;
+        alert(tipo_user);
+        crearMenu(tipo_user);
+
+      }
+
+   }
+
 /*function inicializar(){
     var usrStorage = sessionStorage.getItem('tc');
   
     obtenerUserData(usrStorage);
 }
 
-function obtenerUserData(usrStorage){
+    
+
+
+
+function obtenerUserData(usrStorage){  
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET","../static/xml/cuentas.xml", false);
     xmlhttp.send();
@@ -39,11 +68,12 @@ function obtenerUserData(usrStorage){
     crearMenu(tieneCarro);
 }*/
 
-function inicializar(){
-     
-    /*var rutas, solicitar, logros;
 
-    if(tieneCarro == "true"){
+function crearMenu(tipoUser)
+ {   var rutas, solicitar, logros;
+   
+    if(tipoUser == "oferente"){
+        alert(tipoUser);
         divRutas.setAttribute("class", "tab-pane fade in active");
 
         rutas = document.createElement("li");
@@ -95,7 +125,7 @@ function inicializar(){
         logros.appendChild(a);
         ulMenu.appendChild(logros);
     }
-    else if(tieneCarro == "false"){
+    else if(tipoUser == "solicitante"){
         divSolic.setAttribute("class", "tab-pane fade in active");
 
         solicitar = document.createElement("li");
@@ -114,9 +144,8 @@ function inicializar(){
         a.appendChild(p);
         solicitar.appendChild(a);
         ulMenu.appendChild(solicitar);
-    }*/
-
-    if (window.innerWidth <= window.innerHeight) {
+    }
+  if (window.innerWidth <= window.innerHeight) {
         ulMenu.setAttribute("class", "nav nav-pills");
         navMenu.setAttribute("style", "float:none; width:auto; height:auto;");
         ruta1.setAttribute("style", "width:"+(window.innerWidth-30)+"px; height:"+(window.innerHeight-300)+"px;");
@@ -134,6 +163,32 @@ function inicializar(){
     }
 
 }
+    
+
+    
+    
+
+
+    //$.getJSON("seri/", function(datos) {
+                //alert("ferfijehih");
+    //            alert(data[0].fields);
+    //});
+
+   /* $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "seri/",
+    success: function(data)
+    {       
+            
+            //app = data['pto_lat'];
+            alert("dfgjijgoprejk");
+        
+    },
+         
+    }); */
+
+  
 
 function cambiarMenu(){
     if (window.innerWidth <= window.innerHeight) {
@@ -144,6 +199,9 @@ function cambiarMenu(){
         ulMenu.setAttribute("class", "nav nav-pills nav-stacked");
         navMenu.setAttribute("style", "float:left; width:120px; height:1000px;");
     }
+
+
+    
 }
 
 window.addEventListener("load", inicializar);

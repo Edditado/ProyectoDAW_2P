@@ -8,6 +8,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from main.models import * 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+import json
+from django.core import serializers
 
 #import json
 #from django.core import serializers
@@ -100,3 +102,23 @@ def guardarRuta(request):
 def salir(request):
 	logout(request)
 	return HttpResponseRedirect('/')
+
+
+
+
+
+def jso(request):
+	if request.user.is_authenticated():
+		usr= AuthUser.objects.filter(id=request.user.id)
+    	data = serializers.serialize("json", usr)
+    	print data
+    	return HttpResponse(data, content_type='application/json')
+
+
+
+def ofernts(request):
+	if request.user.is_authenticated():
+		ofr= AuthUser.objects.filter(tipo='oferente')
+    	data2 = serializers.serialize("json", ofr)
+    	print data2
+    	return HttpResponse(data2, content_type='application/json')

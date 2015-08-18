@@ -144,7 +144,7 @@
 
         </header>
        
-            {%if usuario.tipo == "oferente" %}
+            
                 <!--<script type="text/javascript">
                     var a = "{{usuario.tipo}}"
                     alert(a); 
@@ -152,21 +152,13 @@
 
                 <nav id="navMenu">
                     <ul id="ulMenu">
-                        <li class="active">
-                            <a href="#divRutas" data-toggle="pill" alt="HTML5 icon"><img src="{% static 'img/car_icon.png' %}"><h5 id="rutas">Rutas</h5></a>
-                        </li>
-                        <li>
-                            <a href="#divSolic" data-toggle="pill" alt="HTML5 icon"><img src="{% static 'img/location.png' %}"><h5 id="solicitar">Solicitar</h5></a>
-                        </li>
-                        <li>
-                            <a href="#divLogros" data-toggle="pill" alt="HTML5 icon"><img src="{% static 'img/medal.png' %}"><h5 id="logros">Logros</h5></a>
-                        </li>
+                        
                     </ul>
 
                 </nav>
                 <section id="sectShow" class="tab-content">
                    <!--Division de Rutas-->
-                   <div id="divRutas" class="tab-pane fade in active">
+                   <div id="divRutas" class="tab-pane fade">
                         <ul class="nav nav-tabs">
                             <li class="active"><a id="tabR1" data-toggle="tab" href="#rut-1">Ruta 1</a></li>
                             <li><a id="tabR2" data-toggle="tab" href="#rut-2">Ruta 2</a></li>
@@ -251,7 +243,7 @@
                     </div>
                 </section>
 
-            {%endif%}    
+            
 
         {%endif%}
         

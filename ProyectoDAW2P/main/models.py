@@ -56,7 +56,8 @@ class AuthUser(models.Model):
     date_joined = models.DateTimeField()
     tipo = models.TextField(blank=True)
     telf = models.IntegerField(blank=True, null=True)
-
+    ubi_lat = models.FloatField(blank=True, null=True)
+    ubi_lng = models.FloatField(blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'auth_user'

@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^$', views.indexView),
     url(r'^sistema/$', views.ingresar),
     url(r'^sistema/guardar/$', views.guardarRuta),
-    url(r'^salir/$', views.salir)
-    
+    url(r'^salir/$', views.salir),
+    url(r'^sistema/datos/$', views.jso),
+    url(r'^sistema/oferentes/$', views.ofernts),
 )
