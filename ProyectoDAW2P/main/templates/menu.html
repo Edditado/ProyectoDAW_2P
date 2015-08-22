@@ -217,13 +217,36 @@
                                         <button id="bGuardarRuta" onclick="javascript:guardarRuta();" type="button" class="btn btn-default">Guardar Ruta</button>
                                     </form>
                                 </div>
+                                <div id="overmapDistN">
+                                    <h4>Ver solicitantes a:</h4>
+                                    <select id=opDistSol>
+                                          <option value="1">1 Km</option>
+                                          <option value="2">2 Km</option>
+                                          <option value="3" selected>3 Km</option>
+                                          <option value="4">4 Km</option>
+                                     </select>
+                                     <button id="VerDist" onclick="javascript:muestraPorDistanciaSolicitantes();" type="button" class="btn btn-default">Ver</button>
+                    </div>
                             </div>
                         </div>
                 
                     </div>
                     <!--Division de Solicitudes-->
-                    <div id="divSolic" class="tab-pane fade">
+                 <div id="Solic" class="tab-pane fade">
+                    <div id="divSolic"></div>
+                   
+                    <div id="overmapDist">
+                                    <h4>Ver oferentes a:</h4>
+                                    <select id=opDistOf>
+                                          <option value="1">1 Km</option>
+                                          <option value="2">2 Km</option>
+                                          <option value="3" selected>3 Km</option>
+                                          <option value="4">4 Km</option>
+                                     </select>
+                                     <button id="VerDist" onclick="javascript:muestraPorDistanciaOferentes();" type="button" class="btn btn-default">Ver</button>
                     </div>
+                 </div>  
+
                     <!--Division de Logros-->
                     <div id="divLogros" class="tab-pane fade">
                         <div id="imagen-logros" >

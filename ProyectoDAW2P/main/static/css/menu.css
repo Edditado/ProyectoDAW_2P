@@ -83,6 +83,10 @@ body {
 #divRutas{
     position: relative;
 }
+
+#divSolic{
+    position: absolute;
+}
 #miCuenta{
     padding: 3px 53px;
 }
@@ -100,11 +104,52 @@ body {
     text-align: justify;
     padding: 10px;
 }
+
+
 .overmap h4{
     text-align: center;
 }
 #bGuardarRuta{
     color: white;
-    margin-left: 20px;
+    margin-top: 20px;
+    background-color: deepskyblue;
+}
+
+#overmapDist{
+    width:170px; 
+    height: 150px;
+    position: absolute; 
+    top: 100px; 
+    right: 30px; 
+    z-index: 10; 
+    background-color: white;
+    border: 1px solid deepskyblue;
+    border-radius: 7px;
+    box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 10px;
+}
+
+#overmapDistN{
+    width:170px; 
+    height: 150px;
+    position: absolute; 
+    top: 380px; 
+    right: 10px;
+    z-index: 10; 
+    background-color: white;
+    border: 1px solid deepskyblue;
+    border-radius: 7px;
+    box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 10px;
+}
+
+
+#VerDist{
+    clear: both;
+    color: white;
+    margin-left: 3px;
+    margin-top: 5px;
     background-color: deepskyblue;
 }

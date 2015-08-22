@@ -2,7 +2,6 @@
 
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
-#from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect, HttpResponse
 from main.models import * 
@@ -92,12 +91,6 @@ def guardarRuta(request):
 			return HttpResponse(xml, content_type = 'application/xml')
 
 
-'''def prueba(request):
-	if request.user.is_authenticated:
-		usu=AuthUser.objects.get(id=request.user.id)
-		data = serializers.serialize('json', usu)
-		print"123"
-		return HttpResponse(data, content_type ='application/json')'''
 
 def salir(request):
 	logout(request)
@@ -111,14 +104,24 @@ def jso(request):
 	if request.user.is_authenticated():
 		usr= AuthUser.objects.filter(id=request.user.id)
     	data = serializers.serialize("json", usr)
-    	print data
+    	
     	return HttpResponse(data, content_type='application/json')
 
 
 
 def ofernts(request):
 	if request.user.is_authenticated():
-		ofr= AuthUser.objects.filter(tipo='oferente')
-    	data2 = serializers.serialize("json", ofr)
-    	print data2
-    	return HttpResponse(data2, content_type='application/json')
+		ofr= AuthUser.objects.filter(tipo='oferente').exclude(id=request.user.id)
+    	datosOfer = serializers.serialize("json", ofr)
+    	
+    	return HttpResponse(datosOfer, content_type='application/json')
+
+
+
+def solicits(request):
+	if request.user.is_authenticated():
+		sol= AuthUser.objects.filter(tipo='solicitante').exclude(id=request.user.id)
+    	datosSol = serializers.serialize("json", sol)
+    	print datosSol
+    	return HttpResponse(datosSol, content_type='application/json')
+

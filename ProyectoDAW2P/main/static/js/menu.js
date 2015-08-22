@@ -16,73 +16,26 @@ function inicializar(){
     function myFunction(arr) {
         var campos= arr[0].fields;
         tipo_user=campos.tipo;
-        alert(tipo_user);
         crearMenu(tipo_user);
 
       }
 
    }
 
-/*function inicializar(){
-    var usrStorage = sessionStorage.getItem('tc');
-  
-    obtenerUserData(usrStorage);
-}
-
-    
-
-
-
-function obtenerUserData(usrStorage){  
-
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET","../static/xml/cuentas.xml", false);
-    xmlhttp.send();
-    var xmlDoc = xmlhttp.responseXML;
-    var xmlUsrs = xmlDoc.getElementsByTagName("user");
-    var xmlUsr, xmlCta;
-
-    for(var i=0; i < xmlUsrs.length; i++){
-        xmlUsr = xmlUsrs[i].firstChild.nodeValue;
-        if(usrStorage == xmlUsr){
-            xmlCta = xmlUsrs[i].parentElement;
-            nomb.appendChild( xmlCta.getElementsByTagName("nombres")[0].firstChild );
-            ap.appendChild( xmlCta.getElementsByTagName("apellidos")[0].firstChild );
-            inUsr.setAttribute("value", usrStorage );
-                aSesion.appendChild( xmlCta.getElementsByTagName("user")[0].firstChild );
-            inPwd.setAttribute("value", xmlCta.getElementsByTagName("pass")[0].firstChild.nodeValue );
-            var tieneCarro = xmlCta.getElementsByTagName("carro")[0].firstChild.nodeValue;
-            if( tieneCarro == "true"){
-                sc.setAttribute("checked","checked");
-                placac.setAttribute("value", xmlCta.getElementsByTagName("placa")[0].firstChild.nodeValue );
-            }
-            else{
-                nc.setAttribute("checked","checked");
-            }
-            cel.appendChild( xmlCta.getElementsByTagName("telf")[0].firstChild );
-            email.appendChild( xmlCta.getElementsByTagName("mail")[0].firstChild );
-            cuentafb.appendChild( xmlCta.getElementsByTagName("fb")[0].firstChild );
-        }
-    }
-
-    crearMenu(tieneCarro);
-}*/
-
-
 function crearMenu(tipoUser)
  {   var rutas, solicitar, logros;
    
     if(tipoUser == "oferente"){
-        alert(tipoUser);
+        
         divRutas.setAttribute("class", "tab-pane fade in active");
-
+       // overmapDist.setAttribute("style", "display:none");
         rutas = document.createElement("li");
         rutas.setAttribute("class", "active");
         var a = document.createElement("a");
         a.setAttribute("href", "#divRutas");
         a.setAttribute("data-toggle", "pill");
         var img = document.createElement("img");
-        img.setAttribute("src", "static/img/car_icon.png");
+        img.setAttribute("src", "../static/img/car_icon.png");
         img.setAttribute("alt", "HTML5 Icon");
         a.appendChild(img);
         var p = document.createElement("h5");
@@ -95,10 +48,10 @@ function crearMenu(tipoUser)
 
         solicitar = document.createElement("li");
         var a = document.createElement("a");
-        a.setAttribute("href", "#divSolic");
+        a.setAttribute("href", "#Solic");
         a.setAttribute("data-toggle", "pill");
         var img = document.createElement("img");
-        img.setAttribute("src", "static/img/location.png");
+        img.setAttribute("src", "../static/img/location.png");
         img.setAttribute("alt", "HTML5 Icon");
         a.appendChild(img);
         var p = document.createElement("h5");
@@ -114,7 +67,7 @@ function crearMenu(tipoUser)
         a.setAttribute("href", "#divLogros");
         a.setAttribute("data-toggle", "pill");
         var img = document.createElement("img");
-        img.setAttribute("src", "static/img/medal.png");
+        img.setAttribute("src", "../static/img/medal.png");
         img.setAttribute("alt", "HTML5 Icon");
         a.appendChild(img);
         var p = document.createElement("h5");
@@ -126,15 +79,15 @@ function crearMenu(tipoUser)
         ulMenu.appendChild(logros);
     }
     else if(tipoUser == "solicitante"){
-        divSolic.setAttribute("class", "tab-pane fade in active");
+        Solic.setAttribute("class", "tab-pane fade in active");
 
         solicitar = document.createElement("li");
         solicitar.setAttribute("class", "active");
         var a = document.createElement("a");
-        a.setAttribute("href", "#divSolic");
+        a.setAttribute("href", "#Solic");
         a.setAttribute("data-toggle", "pill"); 
         var img = document.createElement("img"); 
-        img.setAttribute("src", "static/img/location.png");
+        img.setAttribute("src", "../static/img/location.png");
         img.setAttribute("alt", "HTML5 Icon");
         a.appendChild(img);
         var p = document.createElement("h5");
@@ -164,10 +117,6 @@ function crearMenu(tipoUser)
 
 }
     
-
-    
-    
-
 
     //$.getJSON("seri/", function(datos) {
                 //alert("ferfijehih");

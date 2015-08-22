@@ -51,7 +51,10 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
             title:"Arrastrame!",
             animation:google.maps.Animation.DROP
         });
-        //ubicarMarcadorSolicitantes(parseFloat(lat), parseFloat(long), map, imagePerson);
+        var Distsel = document.getElementById("opDistSol");
+        var distanciaSel = Distsel.options[Distsel.selectedIndex];
+        var distanciaCalc=parseFloat(distanciaSel.value);
+        ubicarMarcadorSolicitantes(parseFloat(lat), parseFloat(long), map, imagePerson,distanciaCalc);
         
         directionsDisplay.setMap(map);
        
@@ -106,8 +109,10 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
             animation:google.maps.Animation.BOUNCE
     	});
 
-
-    ubicarMarcadorOferentes(parseFloat(lat), parseFloat(long),map,imageCar);
+    var Distsel = document.getElementById("opDistOf");
+    var distanciaSel = Distsel.options[Distsel.selectedIndex];
+    var distanciaCalc=parseFloat(distanciaSel.value);
+    ubicarMarcadorOferentes(parseFloat(lat), parseFloat(long),map,imageCar,distanciaCalc);
 	
     }	
 	marker.setMap(map);
@@ -134,6 +139,14 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
      	map.setCenter(myCenter);
     });
 }	    
+
+function muestraPorDistanciaOferentes(){
+        MAP_crearMapa("-2.172637","-79.940418", "divSolic", "solicitar");
+} 
+function muestraPorDistanciaSolicitantes(){
+        MAP_crearMapa("-2.172637","-79.940418", "nRuta", "newRuta");
+} 
+
 
 function guardarRuta(){
 
@@ -213,7 +226,9 @@ function guardarRuta(){
      }
 }
 
-function ubicarMarcadorOferentes(lat1, long1, map, imageCar) {
+
+
+function ubicarMarcadorOferentes(lat1, long1, map, imageCar, distanciaCalc) {
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "oferentes/", false);  
@@ -229,8 +244,8 @@ function ubicarMarcadorOferentes(lat1, long1, map, imageCar) {
         long2 = campos_ofer.ubi_lng;
         distancia = calcularDistancia(lat1, long1, lat2, long2); 
         distancia=distancia.toFixed(2);
-        /*Valida si la distancia es <= 3Km*/  
-        if (distancia <= 3) {
+        /*Valida si la distancia es <= la distancia seleccionada*/  
+        if (distancia <= distanciaCalc) {
             var marker_ofer;
             
                     marker_ofer = new google.maps.Marker({
@@ -254,6 +269,50 @@ function ubicarMarcadorOferentes(lat1, long1, map, imageCar) {
              
         }
 
+    }
+}
+
+
+
+
+function ubicarMarcadorSolicitantes(lat1,long1,map,imagePerson, distanciaCalc){
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "solicitantes/", false);  
+    xmlhttp.send();    
+    var t_solic = JSON.parse(xmlhttp.responseText); 
+    
+    var nom, lat2, long2, distancia;
+    
+    for (i = 0; i < t_solic.length; i++) {
+        var campos_sol= t_solic[i].fields; 
+        nom = campos_sol.first_name;  
+        lat2 = campos_sol.ubi_lat;
+        long2 = campos_sol.ubi_lng;
+        distancia = calcularDistancia(lat1, long1, lat2, long2); 
+        distancia = distancia * 1000;                            // llevando a Mtrs.
+        distancia=distancia.toFixed(2);
+        /*Valida si la distancia es <= 500m*/
+        if (distancia <= (distanciaCalc*1000)) {
+           
+            var marker_solic = new google.maps.Marker({
+                position: new google.maps.LatLng(parseFloat(lat2), parseFloat(long2)),
+                icon: imagePerson,
+                animation: google.maps.Animation.BOUNCE,
+                map:map
+
+            });
+            
+            marker_solic.content = '<p><b>' + nom + '</b></p>' +
+                                   '<p><b>Dista de ti:</b></br>' + distancia+ " Metros" +'</p>';
+           
+            var infowindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker_solic, 'click', function() {
+                infowindow.setContent(this.content);
+                infowindow.open(map,this);
+
+            }); 
+        }    
     }
 }
 
