@@ -101,16 +101,14 @@ function crearMenu(tipoUser)
   if (window.innerWidth <= window.innerHeight) {
         ulMenu.setAttribute("class", "nav nav-pills");
         navMenu.setAttribute("style", "float:none; width:auto; height:auto;");
-        ruta1.setAttribute("style", "width:"+(window.innerWidth-30)+"px; height:"+(window.innerHeight-300)+"px;");
-        ruta2.setAttribute("style", "width:"+(window.innerWidth-30)+"px; height:"+(window.innerHeight-300)+"px;");
+        lstRutas.setAttribute("style", "width:"+(window.innerWidth-30)+"px; min-height:"+(window.innerHeight-300)+"px;");
         nRuta.setAttribute("style", "width:"+(window.innerWidth-30)+"px; height:"+(window.innerHeight-300)+"px;");
         divSolic.setAttribute("style", "width:"+(window.innerWidth-30)+"px; height:"+(window.innerHeight-300)+"px;");
     }
     else { 
         ulMenu.setAttribute("class", "nav nav-pills nav-stacked");
         navMenu.setAttribute("style", "float:left; width:120px; height:"+(window.innerHeight-50)+"px;");
-        ruta1.setAttribute("style", "width:"+(window.innerWidth-160)+"px; height:"+(window.innerHeight-150)+"px;");
-        ruta2.setAttribute("style", "width:"+(window.innerWidth-160)+"px; height:"+(window.innerHeight-150)+"px;");
+        lstRutas.setAttribute("style", "width:"+(window.innerWidth-160)+"px; min-height:"+(window.innerHeight-150)+"px;");
         nRuta.setAttribute("style", "width:"+(window.innerWidth-160)+"px; height:"+(window.innerHeight-150)+"px;");
         divSolic.setAttribute("style", "width:"+(window.innerWidth-160)+"px; height:"+(window.innerHeight-150)+"px;");
     }
@@ -118,26 +116,6 @@ function crearMenu(tipoUser)
 }
     
 
-    //$.getJSON("seri/", function(datos) {
-                //alert("ferfijehih");
-    //            alert(data[0].fields);
-    //});
-
-   /* $.ajax({
-    type: "GET",
-    dataType: "json",
-    url: "seri/",
-    success: function(data)
-    {       
-            
-            //app = data['pto_lat'];
-            alert("dfgjijgoprejk");
-        
-    },
-         
-    }); */
-
-  
 
 function cambiarMenu(){
     if (window.innerWidth <= window.innerHeight) {

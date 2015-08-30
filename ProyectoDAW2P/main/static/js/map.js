@@ -1,31 +1,222 @@
-var start, end;
-var waypts = [], trip=[];
-var directionsDisplay=new google.maps.DirectionsRenderer();
-var directionsService = new google.maps.DirectionsService();
+//vars necesarias y exclusivas para nueva ruta
+var start = null; 
+var end = null;
+var waypts = [];  
+//
+
 
 function MAP_initialize(){
     
-    var latIni = "-2.172637";
-    var longIni = "-79.940418";
+    MAP_crearMapa("divSolic", "solicitar");
+    MAP_crearMapa("nRuta", "newRuta");
 
+   
+    /*peticion para ir a cargarRutas(request) de views.py y retorna data*/
+    $.get("rutas/",function(data){
+        
+        var dictRutas = {};
 
-    MAP_crearMapa(latIni, longIni, "divSolic", "solicitar");
-    MAP_crearMapa(latIni, longIni, "nRuta", "newRuta");
+        //La data viene ordenada desde python por tener int como clave y javascript por defecto los lee ordenadamente 
+        for( key in data){ 
+
+            datos = data[key];
+            puntos = datos[0]; /*permite obtener un array de puntos*/
+            tb_puntos = JSON.parse(puntos); // DES-serializar datos(puntos de ruta) con json.parse
+            var inicio, fin;
+            var array_camino = [];
+            
+            for (i = 0; i < tb_puntos.length; i++) {
+                
+                var campos_puntos= tb_puntos[i].fields;
+                
+                pto_lat = campos_puntos.pto_lat;
+                pto_lng = campos_puntos.pto_lng;
+                tipo_punto = campos_puntos.tipo; 
+
+                if(tipo_punto == "inicio"){
+                    inicio = new google.maps.LatLng(parseFloat(pto_lat), parseFloat(pto_lng));
+                }
+                else if(tipo_punto == "fin"){
+                    fin = new google.maps.LatLng(parseFloat(pto_lat), parseFloat(pto_lng));
+                }
+                else{
+                    var camino = new google.maps.LatLng(parseFloat(pto_lat), parseFloat(pto_lng));
+                 
+                    array_camino.push({
+                        location: camino,
+                        stopover: false
+                    });
+                }    
+            }
+        
+            var request = {
+                origin: inicio,
+                destination: fin,
+                waypoints: array_camino,
+                // optimizeWaypoints: true, /*esta propiedad es usada para encontrar la menor distancia entre dos puntos*/
+                travelMode: google.maps.TravelMode.DRIVING,
+
+            };
+            
+            dictRutas[key] = request;/*Ej. {'1':request,'2':request,...}*/
+        
+        }
+       
+       mostrar_rutaTb(dictRutas);
+    });
+}
+/*Mostrar ruta en tablas*/
+function mostrar_rutaTb(dictRutas){
+
+    var directionsService = new google.maps.DirectionsService();    
+    var arrayKeys = [];
+        arrayKeys = Object.keys(dictRutas).reverse();/*reverse, para mostrar en orden descendente las rutas guardadas*/
+    var num_rutas = arrayKeys.length; /*almacena el numero de keys. Se usará para obtener el id de cada ruta.*/
+    var n = arrayKeys.length;
+    
+    $('#tbRutas tbody tr').remove(); /*limpio la tabla antes de mostrar los datos*/    
+    
+    for(i=0; i < n; i++){
+
+        key = arrayKeys[i];
+
+        if(key in dictRutas){
+        
+            request = dictRutas[key];
+        
+            directionsService.route(request, function (response, status) {
+                
+                if (status == google.maps.DirectionsStatus.OK) {
+                    var route = response.routes[0];
+                    
+                    for (var i = 0; i < route.legs.length; i++) {
+                                
+                        var routeSegment = n;/*Para enumerar cada ruta de usuario al momento de presentarselas*/
+                        var texto="" ;
+                        texto += '<b> Ruta: ' + routeSegment + '</b><br>';
+                        texto += '<b>Desde: </b>'+ route.legs[i].start_address + ' <b>Hasta: </b>';
+                        texto += route.legs[i].end_address + '<br>';
+                        texto += route.legs[i].distance.text + '<br><br>';
+                    
+                        var p_ruta = $('<p></p>').append(texto);
+                        var td1 = $('<td></td>'); var td2 = $('<td></td>');
+                        var tr = $('<tr></tr>');
+                    
+                        var a = $('<a></a>');
+                        var p = $('<p></p>').text("Ver en mapa");
+                        a.append(p); a.attr("href","javascript:mostrar_rutaMapa("+ arrayKeys[num_rutas-n] +")");
+
+                        td1.append(p_ruta); td2.append(a);
+                        tr.append(td1); tr.append(td2);
+                        
+                        $('#tbRutas tbody').append(tr)
+                    
+                    }
+                    n--;
+                }
+            });
+
+        }
+        
+    }
+    
+}
+/*Mostrar ruta en mapa mediante un popup*/
+function mostrar_rutaMapa(id_ruta){
+    
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    
+    $.get("rutas/",function(data){
+       
+        for( key in data){ 
+            
+            if(key == id_ruta){    
+                
+                datos = data[key];
+                puntos = datos[0]; /*permite obtener el array de puntos*/
+
+                tb_puntos = JSON.parse(puntos); // DES-serializar datos(puntos de ruta) con json.parse
+                var inicio, fin;
+                var array_camino = [];
+                var fk;         /*almacenará fk de ruta para luego obtener la hora y la fecha*/
+                for (i = 0; i < tb_puntos.length; i++) {
+                    
+                    var campos_puntos= tb_puntos[i].fields;
+                    pto_lat = campos_puntos.pto_lat;
+                    pto_lng = campos_puntos.pto_lng;
+                    tipo_punto = campos_puntos.tipo; 
+                    //fk = campos_puntos.fk_ruta;
+                    
+                    if(tipo_punto == "inicio"){
+                        inicio = new google.maps.LatLng(parseFloat(pto_lat), parseFloat(pto_lng));
+                    }
+                    else if(tipo_punto == "fin"){
+                        fin = new google.maps.LatLng(parseFloat(pto_lat), parseFloat(pto_lng));
+                    }
+                    else{
+                        var camino = new google.maps.LatLng(parseFloat(pto_lat), parseFloat(pto_lng));
+                     
+                        array_camino.push({
+                            location: camino,
+                            stopover: false
+                        });
+                    }    
+                }
+            
+                var myCenter = fin;
+
+                var mapProp = {
+                    center: myCenter,
+                    zoom: 17,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(document.getElementById("saved-ruta"), mapProp);
+
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                  
+                });
+
+                directionsDisplay.setMap(map);
+                
+                var request = {
+                    origin: inicio,
+                    destination: fin,
+                    waypoints: array_camino,
+                    // optimizeWaypoints: true, /*esta propiedad es usada para encontrar la menor distancia entre dos puntos*/
+                    travelMode: google.maps.TravelMode.DRIVING,
+
+                };
+                directionsService.route(request, function (response, status) {
+                    //alert(status);
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                        $("#popup-ruta").modal();
+                        $("#saved-fecha").val(datos[1]);/*muestra fecha y abajo hora la respectiva ruta que se esta mostraran*/
+                        $("#saved-hora").val(datos[2]);
+                    }
+                });
+                /*Permite hacer un render al mapa para mostrar el recorrido*/    
+                $("#popup-ruta").on('mouseenter', function () {
+                    google.maps.event.trigger(map, 'resize');
+                    map.setCenter(myCenter);
+                    map.setZoom(14);
+                });
+            }
+
+        }
+       
+       
+    });
 }
 
-function MAP_crearMapa(lat, long, divHtml, tipoRuta){
-    var myCenter = new google.maps.LatLng( parseFloat(lat), parseFloat(long) );
-
+function MAP_crearMapa(divHtml, tipoRuta){
     
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
 
-    var mapProp = {
-        center:myCenter,
-        zoom:17,
-        mapTypeId:google.maps.MapTypeId.ROADMAP
-    };
-
-    var map = new google.maps.Map(document.getElementById(divHtml), mapProp);
-    
     var imagePerson = {
         url: "../static/img/personMarker.png",
         //size: new google.maps.Size(71, 71),
@@ -43,14 +234,27 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
     };
 
 	if(tipoRuta == "newRuta"){
-        
+        var lat = "-2.172637";
+        var long = "-79.940418";
+        var myCenter = new google.maps.LatLng( parseFloat(lat), parseFloat(long) );
+
+        var mapProp = {
+            center:myCenter,
+            zoom:17,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById(divHtml), mapProp);
+
         var marker=new google.maps.Marker({
             position:myCenter,
             icon: imageCar,
             draggable:true,
             title:"Arrastrame!",
+            map:map,
             animation:google.maps.Animation.DROP
         });
+
         var Distsel = document.getElementById("opDistSol");
         var distanciaSel = Distsel.options[Distsel.selectedIndex];
         var distanciaCalc=parseFloat(distanciaSel.value);
@@ -63,49 +267,62 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
       
         function dibujarRuta(event) {
         		
-                if (start == null) {
-                    start = new google.maps.LatLng(event.latLng.lat(),event.latLng.lng());
-                    //alert(typeof(start.lat()));
-                    return;
-                }
+            if (start == null) {
+                start = new google.maps.LatLng(event.latLng.lat(),event.latLng.lng());
+                //alert(typeof(start.lat()));
+                return;
+            }
 
-                else if (end == null) {
-                    end = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()); 
-                }
-                else {
-                    waypts.push({
-                        location: end,
-                        stopover: false
-                    });
-                    end = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-
-                }
+            else if (end == null) {
+                end = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()); 
                 
-
-                var request = {
-                    origin: start,
-                    destination: end,
-                    waypoints: waypts,
-                    optimizeWaypoints: true,
-                    travelMode: google.maps.TravelMode.DRIVING
-
-                };
-
-                directionsService.route(request, function (response, status) {
-                    
-                    if (status == google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    }
+            }
+            else {
+                waypts.push({
+                    location: end,
+                    stopover: false
                 });
-                //waypts = [];
+                end = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+
+            }
+            
+
+            var request = {
+                origin: start,
+                destination: end,
+                waypoints: waypts,
+                //optimizeWaypoints: true,
+                travelMode: google.maps.TravelMode.DRIVING
+
+            };
+
+            directionsService.route(request, function (response, status) {
+                
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            
         } 
-        
-       
+
     }
     else if(tipoRuta == "solicitar"){
+        var lat = "-2.172637";
+        var lng = "-79.940418";
+        var myCenter = new google.maps.LatLng( parseFloat(lat), parseFloat(lng) );
+
+        var mapProp = {
+            center:myCenter,
+            zoom:17,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById(divHtml), mapProp);
+
         var marker=new google.maps.Marker({
             position:myCenter,
             icon: imagePerson,
+            map:map,
             animation:google.maps.Animation.BOUNCE
     	});
 
@@ -115,7 +332,7 @@ function MAP_crearMapa(lat, long, divHtml, tipoRuta){
     ubicarMarcadorOferentes(parseFloat(lat), parseFloat(long),map,imageCar,distanciaCalc);
 	
     }	
-	marker.setMap(map);
+	
     
     var infowindow = new google.maps.InfoWindow({
        	content:"Estas Aquí"
@@ -175,7 +392,7 @@ function guardarRuta(){
                 way = way + coord + "|";        
             }    
             way=way.substring(0, way.length-1);
-            alert(way);
+            //alert(way);
             var xmlhttp; 
 
             if (window.XMLHttpRequest)
@@ -198,6 +415,12 @@ function guardarRuta(){
                                 alert('Error al enviar resultados.');
                             else{
                                 alert("Se ha guardado su ruta exitosamente..");
+
+                                start=null; end=null; waypts=[];
+                                
+                                $("a[href^=#rutas_guardadas]").on("shown.bs.tab",function(){
+                                        MAP_initialize();   
+                                });
                                 //window.location = "/sistema/reservaciones/activas/";
                             }
                     }
@@ -230,6 +453,9 @@ function guardarRuta(){
 
 function ubicarMarcadorOferentes(lat1, long1, map, imageCar, distanciaCalc) {
 
+    /*$.get("peticiones/", function(data){
+        alert(data)
+    });*/
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "oferentes/", false);  
     xmlhttp.send();    
@@ -244,7 +470,7 @@ function ubicarMarcadorOferentes(lat1, long1, map, imageCar, distanciaCalc) {
         long2 = campos_ofer.ubi_lng;
         distancia = calcularDistancia(lat1, long1, lat2, long2); 
         distancia=distancia.toFixed(2);
-        /*Valida si la distancia es <= la distancia seleccionada*/  
+        //Valida si la distancia es <= la distancia seleccionada
         if (distancia <= distanciaCalc) {
             var marker_ofer;
             

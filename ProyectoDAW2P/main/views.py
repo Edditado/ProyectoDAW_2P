@@ -3,12 +3,13 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from main.models import * 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import json
 from django.core import serializers
+import datetime
 
 #import json
 #from django.core import serializers
@@ -97,9 +98,24 @@ def salir(request):
 	return HttpResponseRedirect('/')
 
 
-
-
-
+'''funcion para retornar las rutas del usuario autenticado'''
+def cargarRutas(request):
+	if request.user.is_authenticated():
+		
+		usuario= AuthUser.objects.filter(id=request.user.id) 
+		rutas = Ruta.objects.filter(fk_user=usuario);
+		#puntos = serializers.serialize("json", puntos)
+		#rutas = serializers.serialize("json", rutas)
+		
+		data = {}
+		for ruta in rutas:
+			puntos= Puntos.objects.filter(fk_ruta=ruta.id_ruta)
+			puntos= serializers.serialize("json", puntos)
+			data[ruta.id_ruta]=[puntos,ruta.fecha,ruta.hora]
+			
+		
+		return JsonResponse(data)
+			
 def jso(request):
 	if request.user.is_authenticated():
 		usr= AuthUser.objects.filter(id=request.user.id)
@@ -122,6 +138,19 @@ def solicits(request):
 	if request.user.is_authenticated():
 		sol= AuthUser.objects.filter(tipo='solicitante').exclude(id=request.user.id)
     	datosSol = serializers.serialize("json", sol)
-    	print datosSol
+    	
     	return HttpResponse(datosSol, content_type='application/json')
 
+def peticiones(request):
+	if request.is_ajax():
+
+		currDT = "%s"%datetime.datetime.now()
+		splited = currDT.split()
+		currDate = splited[0]
+		currTime = splited[1][:5]
+		print ":v"
+		rutas = Ruta.objects.filter(fecha=currDate).filter(hora__gte=currTime).order_by("fk_user", "hora")
+		serialRutas = serializers.serialize("json", rutas)
+		print rutas
+		print serialRutas
+		return JsonResponse({"rutas": serialRutas})

@@ -8,7 +8,7 @@ body {
     margin-bottom: 0;
 }
 #headerTitle{
-    color: gainsboro;
+    color: white;
     font: italic bold 18px Georgia, serif;
     padding: 3px 20px;
 }
@@ -31,7 +31,7 @@ body {
 }
 #aSesion:hover, #aMessage:hover,#aMessage:focus, #aSesion:focus, #aSesion:active, #aMessage:active, .open>#aSesion, .open>#aMessage{
 	color: white;
-    background-color: black;
+    background-color: #ADD8E6;
 }
 .badge{
     padding: 1px, 8px;
@@ -153,3 +153,14 @@ body {
     margin-top: 5px;
     background-color: deepskyblue;
 }
+.navbar-inverse {
+    background-color: deepskyblue;
+    border-color: #ccc;
+}
+/*tbody, thead tr { display: block; }
+
+tbody {
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}*/

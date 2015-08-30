@@ -12,10 +12,6 @@
         <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <script src="{% static 'js/menu.js' %}"></script>
-        <script src="{% static 'js/cuenta.js' %}"></script>
-        <script src="{% static 'js/map.js' %}"></script>
-        <script src="{% static 'js/mensajeria.js'%}"></script>
         <link rel="stylesheet" href="{% static 'css/menu.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/cuenta.css' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/mensajeria.css' %}">
@@ -160,45 +156,49 @@
                    <!--Division de Rutas-->
                    <div id="divRutas" class="tab-pane fade">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a id="tabR1" data-toggle="tab" href="#rut-1">Ruta 1</a></li>
-                            <li><a id="tabR2" data-toggle="tab" href="#rut-2">Ruta 2</a></li>
+                            <li class="active"><a id="tabRG" data-toggle="tab" href="#rutas_guardadas">Guardadas</a></li>
                             <li><a id="tabNR" data-toggle="tab" href="#nRu">Nueva Ruta</a></li>
                         </ul>
 
                         <div class="tab-content">
-                            <div id="rut-1" class="tab-pane fade in active">
-                                <div id="ruta1"></div>
-                                <div class="overmap">
-                                    <h4>Horario de ruta</h4>
-                                    <form id="form1">
-                                        <div class="form-group" >
-                                            <label>Fecha:</label>
-                                            <input id="fechaR" type="date" class="form-control" value="2015-07-15" readonly="redonly">
-                                        </div>
-                                        <div class="form-group" id="pw">
-                                            <label  >Hora:</label>
-                                            <input id="horaR" type="time"  class="form-control" value="12:30" readonly="redonly">
-                                        </div>
+                            <div id="rutas_guardadas" class="tab-pane fade in active">
+                                <div id="lstRutas" >
+                                    <table id="tbRutas" class="table table-striped table-condensed table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>    
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="modal fade"  id="popup-ruta"role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" >
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <div class="modal-title"> </div>
+                                            </div>
+                                            <div class="modal-body" id="saved-ruta" style="width:598px; height:600px;" ></div>
+                                            <div class="overmap">
+                                                <h4>Horario de ruta</h4>
+                                                <form>
+                                                    <div class="form-group" >
+                                                        <label>Fecha:</label>
+                                                        <input id="saved-fecha" type="text" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group" id="pw">
+                                                        <label>Hora:</label>
+                                                        <input id="saved-hora" type="text" class="form-control" required>
+                                                    </div>
                     
-                                    </form>
-                                </div> 
-                            </div>
-                            <div id="rut-2" class="tab-pane fade">
-                                <div id="ruta2"></div>
-                                <div class="overmap">
-                                    <h4>Horario de ruta</h4>
-                                    <form id="form1">
-                                        <div class="form-group" >
-                                            <label>Fecha:</label>
-                                            <input type="date" class="form-control" value="2015-07-16" readonly="redonly">
+                                                </form>
+                                            </div>
+                                                                
                                         </div>
-                                        <div class="form-group" id="pw">
-                                            <label  >Hora:</label>
-                                            <input type="time" class="form-control" value="09:30" readonly="redonly">
-                                        </div>
-                    
-                                    </form>
-                                </div> 
+                                    </div>
+                                </div>
                             </div>
                             <div id="nRu"class="tab-pane fade">
                                 <div id="nRuta"></div>
@@ -226,7 +226,7 @@
                                           <option value="4">4 Km</option>
                                      </select>
                                      <button id="VerDist" onclick="javascript:muestraPorDistanciaSolicitantes();" type="button" class="btn btn-default">Ver</button>
-                    </div>
+                                </div>
                             </div>
                         </div>
                 
@@ -275,5 +275,9 @@
             {% block content %}{% endblock %}
 
         </div>
+        <script src="{% static 'js/menu.js' %}"></script>
+        <script src="{% static 'js/cuenta.js' %}"></script>
+        <script src="{% static 'js/map.js' %}"></script>
+        <script src="{% static 'js/mensajeria.js'%}"></script>
     </body>
 </html>
