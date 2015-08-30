@@ -9,11 +9,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import json
 from django.core import serializers
-import datetime
+from datetime import datetime
+from suds.xsd.doctor import ImportDoctor, Import
+from suds.client import Client
 
-#import json
-#from django.core import serializers
-# Create your views here.
+url = 'http://ws.espol.edu.ec/saac/wsandroid.asmx?WSDL'
+impSchema = Import('http://www.w3.org/2001/XMLSchema')
+impSchema.filter.add('http://tempuri.org/')
+interprete = ImportDoctor(impSchema)
+cliente = Client(url, doctor=interprete)
+numeroMatricula = ''
+
 def indexView(request):
 	if request.user.is_authenticated():
 		return HttpResponseRedirect('sistema/')
@@ -154,3 +160,42 @@ def peticiones(request):
 		print rutas
 		print serialRutas
 		return JsonResponse({"rutas": serialRutas})
+
+@csrf_exempt
+def registro(request):
+    global numeroMatricula
+    usuarioU = request.POST.get('userForm')
+    respuestaAutenticacion = cliente.service.autenticacion(request.POST.get('userForm'), request.POST.get('passForm'))
+    if respuestaAutenticacion == True:
+        respuestaMatricula = cliente.service.wsConsultaCodigoEstudiante(usuarioU)
+        numeroMatricula = respuestaMatricula.diffgram.NewDataSet.MATRICULA.COD_ESTUDIANTE
+        return render_to_response('formulario2.html', context_instance=RequestContext(request))
+    else:
+        return render_to_response('index.html', context_instance=RequestContext(request))
+
+
+def datosUsuario(request,numeroMatricula):
+    if request.method == 'POST':
+        respuestaDatos = cliente.service.wsInfoEstudianteGeneral("numeroMatricula")
+        password = request.POST['newPassword']
+        last_login = "%s"%datetime.now()
+        is_superuser = False
+        username = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.USUARIO
+        first_name = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.NOMBRES
+        last_name = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.APELLIDOS
+        email = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.CORREO
+        is_staff = False
+        is_active = True
+        date_joined = "%s"%datetime.now()
+        if request.POST['optradio'] == True:
+            tipo = 'oferente'
+        else:
+            tipo = 'solicitante'
+        telf = request.POST['newTelefono']
+        ubi_lat = '-2.177595'
+        ubi_lng = '-79.941624'
+
+        userData = AuthUser(id='',password=password,last_login=last_login,is_superuser=id_superuser,username=username,first_name=first_name, last_name=last_name, email=email, is_staff=is_staff,is_active=is_active, date_joined=date_joined, tipo=tipo, telf=telf, ubi_lat=ubi_lat,ubi_lng=ubi_lng)
+        userData.save()
+        lista_editoriales = AuthUser.objects.all()
+        return render_to_response('index.html', context_instance=RequestContext(request))

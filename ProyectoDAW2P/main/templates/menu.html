@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
         <link rel="stylesheet" href="{% static 'css/menu.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/cuenta.css' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/mensajeria.css' %}">
@@ -270,11 +271,11 @@
 
         {%endif%}
         
-        <div id="contenido">
+        
     
             {% block content %}{% endblock %}
 
-        </div>
+        
         <script src="{% static 'js/menu.js' %}"></script>
         <script src="{% static 'js/cuenta.js' %}"></script>
         <script src="{% static 'js/map.js' %}"></script>

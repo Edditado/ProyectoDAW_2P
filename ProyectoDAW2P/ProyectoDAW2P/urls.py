@@ -17,4 +17,6 @@ urlpatterns = patterns('',
     url(r'^sistema/oferentes/$', views.ofernts),
     url(r'^sistema/solicitantes/$', views.solicits),
     url(r'^sistema/peticiones/$', views.peticiones),
+    url(r'^registro/$', views.registro),
+    url(r'^$',views.datosUsuario),
 )

@@ -60,51 +60,24 @@
                  </div>
         </div>
 
-         <div class="col-3 right">
-             <div class="aside">
-                <h2>No esperes más ¡Regístrate!</h2>
+        <div class="col-3 right">
+         <div class="aside">
+            <h2>No esperes más ¡Regístrate!</h2>
+            <form action="registro/" method="post" id="form1" role="form">{% csrf_token %}
+                <nav class="form-group" id="user">
+                    <label for="userR">Usuario Espol:</label>
+                    <input type="text" class="form-control" name="userForm" id="userR" placeholder="Usuario Espol" required>
+                </nav>
+                <nav class="form-group" id="pw">
+                    <label for="pwR">Contraseña Espol:</label>
+                    <input type="password" class="form-control" name="passForm"id="pwR" placeholder="Contraseña Espol" required>
+                </nav>
                 
-                <form id="form1">
-                    <div class="form-group" id="user">
-                        <label for="userR">Usuario Espol:</label>
-                        <input type="text" class="form-control" id="userR" required>
-                    </div>
-                    <div class="form-group" id="pw">
-                        <label for="pwR">Contraseña Espol:</label>
-                        <input type="password" class="form-control" id="pwR" required>
-                    </div>
-                    
-                    <button id="bListo" type="button" class="btn btn-default">Listo</button>
-                </form>
-                <form id="form2">
-
-                    <div class="form-group" id="newPassW">
-                        <label for="newPW">Nueva Contraseña (para este sitio)</label>
-                        <input type="password" class="form-control" id="newPW" required>
-                    </div>
-                    <div class="form-group" id="checkPassW">
-                        <label for="checkPW">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="checkPW" required>
-                    </div>
-                    
-                    <label class="radio-inline">
-                        <input type="radio" name="optradio" id="radio_siAuto">Tengo Auto
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="optradio" id="radio_noAuto" checked>No tengo Auto
-                    </label>
-                   
-                    <div class="form-group" id="div_placa">
-                        <label for="placa">Placa</label>
-                        <input type="text" class="form-control" id="placa" placeholder="Ejemplo: ABC-1234">
-                    </div>
-                 
-                    <button id="bRegistrar" type="submit" class="btn btn-default">Registrar</button>
-                </form> 
-             </div>
-                
-        </div>    
-   </section>
+                <button id="bListo" type="submit" class="btn btn-default">Listo</button>
+            </form>                
+         </div>                
+        </div> 
+    </section>
 </div>
 <footer class="footer">
   <p>Todos los derechos reservados</p>

@@ -1,0 +1,36 @@
+{% extends 'menu.html' %}
+{% block content %}
+<div id="contenido">
+    <div>
+        <label>Bienvenido</label>
+    <div>
+    <form action="." method="post" id="form2" role="form">{% csrf_token %}
+        <div class="form-group" id="newPassW">
+            <label for="newPW">Nueva Contraseña (para este sitio)</label>
+            <input type="password" class="form-control" id="newPW" name="newPassword" required>
+        </div>
+        <div class="form-group" id="checkPassW">
+            <label for="checkPW">Confirmar Contraseña</label>
+            <input type="password" class="form-control" id="checkPW" required>
+        </div>
+        <div class="form-group" id="newT">
+            <label for="newTEL">Telefóno</label>
+            <input type="tel" class="form-control" id="newTEL" name="newTelefono" required>
+        </div>
+        <label class="radio-inline">
+            <input type="radio" name="optradio" id="radio_siAuto">Tengo Auto
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="optradio" id="radio_noAuto" checked>No tengo Auto
+        </label>
+
+        <div class="form-group" id="div_placa">
+            <label for="placa">Placa</label>
+            <input type="text" class="form-control" id="placa" placeholder="Ejemplo: ABC-1234">
+        </div>
+
+        <button style="float:right; margin-right:100px" id="bRegistrar" type="submit" class="btn btn-default">Registrar</button>
+    </form> 
+    <a href="/"><button style="float:left; margin-left:100px" type="button" class="btn btn-info">Cancelar</button></a>
+</div>
+{% endblock %}
