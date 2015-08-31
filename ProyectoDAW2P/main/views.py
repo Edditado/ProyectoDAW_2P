@@ -13,7 +13,7 @@ from datetime import datetime
 from suds.xsd.doctor import ImportDoctor, Import
 from suds.client import Client
 
-url = 'http://ws.espol.edu.ec/saac/wsandroid.asmx?WSDL'
+url = 'https://ws.espol.edu.ec/saac/wsandroid.asmx?wsdl'
 impSchema = Import('http://www.w3.org/2001/XMLSchema')
 impSchema.filter.add('http://tempuri.org/')
 interprete = ImportDoctor(impSchema)
@@ -164,8 +164,8 @@ def peticiones(request):
 @csrf_exempt
 def registro(request):
     global numeroMatricula
-    usuarioU = request.POST.get('userForm')
-    respuestaAutenticacion = cliente.service.autenticacion(request.POST.get('userForm'), request.POST.get('passForm'))
+    usuarioU = request.POST.get('userForm',None)
+    respuestaAutenticacion = cliente.service.autenticacion(request.POST.get('userForm',None), request.POST.get('passForm',None))
     if respuestaAutenticacion == True:
         respuestaMatricula = cliente.service.wsConsultaCodigoEstudiante(usuarioU)
         numeroMatricula = respuestaMatricula.diffgram.NewDataSet.MATRICULA.COD_ESTUDIANTE
@@ -177,7 +177,7 @@ def registro(request):
 def datosUsuario(request,numeroMatricula):
     if request.method == 'POST':
         respuestaDatos = cliente.service.wsInfoEstudianteGeneral("numeroMatricula")
-        password = request.POST['newPassword']
+        password = request.POST.get('newPassword',None)
         last_login = "%s"%datetime.now()
         is_superuser = False
         username = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.USUARIO
@@ -187,7 +187,7 @@ def datosUsuario(request,numeroMatricula):
         is_staff = False
         is_active = True
         date_joined = "%s"%datetime.now()
-        if request.POST['optradio'] == True:
+        if request.POST.get('optradio',None) == True:
             tipo = 'oferente'
         else:
             tipo = 'solicitante'
@@ -195,7 +195,6 @@ def datosUsuario(request,numeroMatricula):
         ubi_lat = '-2.177595'
         ubi_lng = '-79.941624'
 
-        userData = AuthUser(id='',password=password,last_login=last_login,is_superuser=id_superuser,username=username,first_name=first_name, last_name=last_name, email=email, is_staff=is_staff,is_active=is_active, date_joined=date_joined, tipo=tipo, telf=telf, ubi_lat=ubi_lat,ubi_lng=ubi_lng)
-        userData.save()
-        lista_editoriales = AuthUser.objects.all()
+        userData = AuthUser(password=password,last_login=last_login,is_superuser=id_superuser,username=username,first_name=first_name, last_name=last_name, email=email, is_staff=is_staff,is_active=is_active, date_joined=date_joined, tipo=tipo, telf=telf, ubi_lat=ubi_lat,ubi_lng=ubi_lng)
+        #userData.save()
         return render_to_response('index.html', context_instance=RequestContext(request))
