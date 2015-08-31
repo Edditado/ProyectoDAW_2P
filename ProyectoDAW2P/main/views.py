@@ -175,27 +175,25 @@ def registro(request):
 
 
 def datosUsuario(request,numeroMatricula):
-    if request.method == 'POST':
+    #if request.method == 'POST':
         respuestaDatos = cliente.service.wsInfoEstudianteGeneral("numeroMatricula")
-        password = request.POST['newPassword']
+        password = str(request.POST.get('newPassword'))
         last_login = "%s"%datetime.now()
         is_superuser = False
-        username = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.USUARIO
-        first_name = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.NOMBRES
-        last_name = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.APELLIDOS
-        email = respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.CORREO
+        username = str(respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.USUARIO)
+        first_name = str(respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.NOMBRES)
+        last_name = str(respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.APELLIDOS)
+        email = str(respuestaDatos.diffgram.NewDataSet.ESTUDIANTE.CORREO)
         is_staff = False
         is_active = True
         date_joined = "%s"%datetime.now()
-        if request.POST['optradio'] == True:
-            tipo = 'oferente'
+        if request.POST.get('optradio') == True:
+            tipo = str('oferente')
         else:
-            tipo = 'solicitante'
-        telf = request.POST['newTelefono']
-        ubi_lat = '-2.177595'
-        ubi_lng = '-79.941624'
+            tipo = str('solicitante')
+        telf = int(request.POST.get('newTelefono'))
+        ubi_lat = float('-2.177595')
+        ubi_lng = float('-79.941624')
 
-        userData = AuthUser(id='',password=password,last_login=last_login,is_superuser=id_superuser,username=username,first_name=first_name, last_name=last_name, email=email, is_staff=is_staff,is_active=is_active, date_joined=date_joined, tipo=tipo, telf=telf, ubi_lat=ubi_lat,ubi_lng=ubi_lng)
-        userData.save()
-        lista_editoriales = AuthUser.objects.all()
+        userData = AuthUser.objects.create(password=password,last_login=last_login,is_superuser=id_superuser,username=username,first_name=first_name, last_name=last_name, email=email, is_staff=is_staff,is_active=is_active, date_joined=date_joined, tipo=tipo, telf=telf, ubi_lat=ubi_lat,ubi_lng=ubi_lng)
         return render_to_response('index.html', context_instance=RequestContext(request))
