@@ -7,13 +7,6 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.4";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <!--<script src="{% static 'js/index.js' %}"></script>-->
     <title>Hacia Allá!</title>
@@ -56,12 +49,8 @@
          <div class="col-4">
             <h1>Hacia Allá</h1>
                 <p>Es una aplicación que te une a la red más grande de amigos al volante.</p>
-                <p>Comparte tu experiencia:</p>
-            <div id="fb-root"></div>
-            <div class="fb-share-button" data-href="http://127.0.0.1:8000/" data-layout="button_count"></div>
-            <br />
-            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hacia%20Alla%20Web" data-size="default" data-counturl="https://dev.twitter.com/web/tweet-button" style="position: static; visibility: visible; width: 96px; height: 20px;"><img src="https://abs.twimg.com/favicons/favicon.ico" alt="Twitter" /></a>
         </div>
+        
         <div class="col-3 right">
                 <div class="aside">
                     <h2>¿Qué?</h2>
